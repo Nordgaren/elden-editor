@@ -7,7 +7,7 @@ use std::string::FromUtf16Error;
 use widestring::{u16cstr, U16CStr, U16CString};
 
 #[repr(C)]
-pub(super) struct DLWString {
+pub(crate) struct DLWString {
     pub string: [u16; 0x8],
     pub length: usize,
     pub capacity: usize,
@@ -92,7 +92,7 @@ impl PartialEq<&U16CStr> for DLWString {
 }
 
 #[repr(C)]
-pub(super) struct DLString {
+pub(crate) struct DLString {
     pub string: [u8; 0x10],
     pub length: usize,
     pub capacity: usize,
