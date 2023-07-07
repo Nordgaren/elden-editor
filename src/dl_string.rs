@@ -174,7 +174,7 @@ impl PartialEq<&str> for DLString {
 
 #[cfg(test)]
 mod tests {
-    use crate::param_editor::dl_string::*;
+    use crate::dl_string::*;
     use std::mem;
     use std::mem::size_of;
 

@@ -1,4 +1,4 @@
-use crate::param_editor::dl_string::DLWString;
+use crate::dl_string::DLWString;
 use std::mem;
 use std::ptr::addr_of;
 use std::string::FromUtf16Error;
