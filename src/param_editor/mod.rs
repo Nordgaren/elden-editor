@@ -9,13 +9,9 @@ use std::ptr::addr_of;
 use structs::*;
 use widestring::U16CStr;
 
-const PARAM_ENTRIES: usize = 186;
-const REPOSITORY_ARRAY: usize = 0x80;
-
 pub struct ParamEditor<P: Param> {
-    solo_param_repository_address: usize,
+    solo_param_repository: &'static SoloParamRepository,
     param_res_cap: &'static ParamResCap,
-    param_pointer: usize,
     param_header: &'static ParamHeader,
     id_repository_info: &'static IdRepositoryInfo,
     phantom_data: PhantomData<P>,
@@ -24,9 +20,8 @@ pub struct ParamEditor<P: Param> {
 impl<P: Param> ParamEditor<P> {
     pub unsafe fn new() -> ParamEditor<P> {
         ParamEditor {
-            solo_param_repository_address: 0,
+            solo_param_repository: mem::transmute(0usize),
             param_res_cap: mem::transmute(0usize),
-            param_pointer: 0,
             param_header: mem::transmute(0usize),
             id_repository_info: mem::transmute(0usize),
             phantom_data: Default::default(),
@@ -43,16 +38,16 @@ impl<P: Param> ParamEditor<P> {
         editor
     }
     pub unsafe fn init(&mut self, solo_param_repository_address: usize) {
-        self.solo_param_repository_address = solo_param_repository_address;
+        self.solo_param_repository = mem::transmute(solo_param_repository_address);
         self.param_res_cap = self
             .find_param_res_cap()
             .expect(&format!("Could not find ParamResCap for {}", P::name()));
 
         self.param_header = self.param_res_cap.param_info.param;
-        self.param_pointer = addr_of!(*self.param_header) as usize;
 
         let param_type = CStr::from_ptr(
-            (self.param_pointer + self.param_header.param_type_offset as usize) as *const c_char,
+            (addr_of!(*self.param_header) as usize + self.param_header.param_type_offset as usize)
+                as *const c_char,
         );
         if param_type.to_bytes() != P::param_type_name().as_bytes() {
             panic!(
@@ -74,7 +69,7 @@ impl<P: Param> ParamEditor<P> {
             );
         }
 
-        self.id_repository_info = mem::transmute(self.param_pointer - 0x10);
+        self.id_repository_info = mem::transmute(addr_of!(*self.param_header) as usize - 0x10);
     }
     #[inline(always)]
     pub unsafe fn get_param_table(&self) -> &'static [ParamTable] {
@@ -88,7 +83,8 @@ impl<P: Param> ParamEditor<P> {
         self.get_param_slice_mut()
     }
     pub unsafe fn get_param_slice_mut(&self) -> &'static mut [P] {
-        let pointer = self.param_pointer + self.param_header.data_offset as usize;
+        let pointer =
+            addr_of!(*self.param_header) as usize + self.param_header.data_offset as usize;
         std::slice::from_raw_parts_mut(pointer as *mut P, self.param_header.row_count as usize)
     }
     #[inline(always)]
@@ -96,8 +92,8 @@ impl<P: Param> ParamEditor<P> {
         self.get_id_repository_mut()
     }
     pub unsafe fn get_id_repository_mut(&self) -> &'static mut [IdRepositoryEntry] {
-        let pointer =
-            self.param_pointer + ((self.id_repository_info.start_offset as usize + 15) & !0xF);
+        let pointer = addr_of!(*self.param_header) as usize
+            + ((self.id_repository_info.start_offset as usize + 15) & !0xF);
         std::slice::from_raw_parts_mut(
             pointer as *mut IdRepositoryEntry,
             self.id_repository_info.entry_count as usize,
@@ -108,7 +104,7 @@ impl<P: Param> ParamEditor<P> {
         for entry in param_table {
             if entry.param_id == entry_id {
                 return Some(mem::transmute(
-                    self.param_pointer + entry.param_offset as usize,
+                    addr_of!(*self.param_header) as usize + entry.param_offset as usize,
                 ));
             }
         }
@@ -119,17 +115,14 @@ impl<P: Param> ParamEditor<P> {
         for entry in param_table {
             if entry.param_id == entry_id {
                 return Some(mem::transmute(
-                    self.param_pointer + entry.param_offset as usize,
+                    addr_of!(*self.param_header) as usize + entry.param_offset as usize,
                 ));
             }
         }
         None
     }
     unsafe fn find_param_res_cap(&self) -> Option<&'static ParamResCap> {
-        let solo_param_entries = std::slice::from_raw_parts(
-            (self.solo_param_repository_address + REPOSITORY_ARRAY) as *const RepositoryEntry,
-            PARAM_ENTRIES,
-        );
+        let solo_param_entries = &self.solo_param_repository.repository_entries;
 
         for entry in solo_param_entries {
             if entry.param_loaded {

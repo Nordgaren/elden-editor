@@ -3,6 +3,14 @@ use std::mem;
 use std::ptr::addr_of;
 use std::string::FromUtf16Error;
 
+const PARAM_ENTRIES: usize = 186;
+
+#[repr(C)]
+pub(super) struct SoloParamRepository {
+    pub unknown0x0: [u8; 0x80],
+    pub repository_entries: [RepositoryEntry; PARAM_ENTRIES],
+}
+
 #[repr(C)]
 pub struct ParamTable {
     pub param_id: i32,
