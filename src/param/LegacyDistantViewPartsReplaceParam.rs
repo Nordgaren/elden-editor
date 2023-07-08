@@ -8,18 +8,18 @@ include!("defs/LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM.rs");
 
 pub type LegacyDistantViewPartsReplaceParam = ParamStruct<LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM>;
 impl Param for ParamStruct<LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM> {
-    const NAME: &'static str = "LegacyDistantViewPartsReplaceParam";
-    const TYPE_NAME: &'static str = "LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM";
-    const VERSION: u16 = 4;
+	const NAME: &'static str = "LegacyDistantViewPartsReplaceParam";
+	const TYPE_NAME: &'static str = "LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM";
+	const VERSION: u16 = 4;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::LegacyDistantViewPartsReplaceParam::LegacyDistantViewPartsReplaceParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::LegacyDistantViewPartsReplaceParam::LegacyDistantViewPartsReplaceParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<LegacyDistantViewPartsReplaceParam>(), 64)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<LegacyDistantViewPartsReplaceParam>(), 64)
+	}
 }

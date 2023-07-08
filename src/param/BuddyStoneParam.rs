@@ -8,18 +8,18 @@ include!("defs/BUDDY_STONE_PARAM_ST.rs");
 
 pub type BuddyStoneParam = ParamStruct<BUDDY_STONE_PARAM_ST>;
 impl Param for ParamStruct<BUDDY_STONE_PARAM_ST> {
-    const NAME: &'static str = "BuddyStoneParam";
-    const TYPE_NAME: &'static str = "BUDDY_STONE_PARAM_ST";
-    const VERSION: u16 = 2;
+	const NAME: &'static str = "BuddyStoneParam";
+	const TYPE_NAME: &'static str = "BUDDY_STONE_PARAM_ST";
+	const VERSION: u16 = 2;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::BuddyStoneParam::BuddyStoneParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::BuddyStoneParam::BuddyStoneParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<BuddyStoneParam>(), 64)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<BuddyStoneParam>(), 64)
+	}
 }

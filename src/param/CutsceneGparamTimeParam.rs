@@ -8,18 +8,18 @@ include!("defs/CUTSCENE_GPARAM_TIME_PARAM_ST.rs");
 
 pub type CutsceneGparamTimeParam = ParamStruct<CUTSCENE_GPARAM_TIME_PARAM_ST>;
 impl Param for ParamStruct<CUTSCENE_GPARAM_TIME_PARAM_ST> {
-    const NAME: &'static str = "CutsceneGparamTimeParam";
-    const TYPE_NAME: &'static str = "CUTSCENE_GPARAM_TIME_PARAM_ST";
-    const VERSION: u16 = 3;
+	const NAME: &'static str = "CutsceneGparamTimeParam";
+	const TYPE_NAME: &'static str = "CUTSCENE_GPARAM_TIME_PARAM_ST";
+	const VERSION: u16 = 3;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::CutsceneGparamTimeParam::CutsceneGparamTimeParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::CutsceneGparamTimeParam::CutsceneGparamTimeParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<CutsceneGparamTimeParam>(), 16)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<CutsceneGparamTimeParam>(), 16)
+	}
 }

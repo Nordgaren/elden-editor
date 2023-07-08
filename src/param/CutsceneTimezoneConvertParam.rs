@@ -8,18 +8,18 @@ include!("defs/CUTSCENE_TIMEZONE_CONVERT_PARAM_ST.rs");
 
 pub type CutsceneTimezoneConvertParam = ParamStruct<CUTSCENE_TIMEZONE_CONVERT_PARAM_ST>;
 impl Param for ParamStruct<CUTSCENE_TIMEZONE_CONVERT_PARAM_ST> {
-    const NAME: &'static str = "CutsceneTimezoneConvertParam";
-    const TYPE_NAME: &'static str = "CUTSCENE_TIMEZONE_CONVERT_PARAM_ST";
-    const VERSION: u16 = 1;
+	const NAME: &'static str = "CutsceneTimezoneConvertParam";
+	const TYPE_NAME: &'static str = "CUTSCENE_TIMEZONE_CONVERT_PARAM_ST";
+	const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::CutsceneTimezoneConvertParam::CutsceneTimezoneConvertParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::CutsceneTimezoneConvertParam::CutsceneTimezoneConvertParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<CutsceneTimezoneConvertParam>(), 8)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<CutsceneTimezoneConvertParam>(), 8)
+	}
 }

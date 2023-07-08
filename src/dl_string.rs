@@ -1,10 +1,7 @@
 use std::ffi::{c_char, CStr};
-use std::mem;
 use std::ops::Deref;
 use std::ptr::addr_of;
-use std::str::Utf8Error;
-use std::string::FromUtf16Error;
-use widestring::{u16cstr, U16CStr, U16CString};
+use widestring::{u16cstr, U16CStr};
 
 #[repr(C)]
 pub(crate) struct DLWString {
@@ -20,7 +17,7 @@ impl DLWString {
 
         if s.len() >= 8 {
             let addr = s.as_ptr() as usize;
-            let mut str_ptr_bytes =
+            let str_ptr_bytes =
                 unsafe { std::slice::from_raw_parts(addr_of!(addr) as *const u8, 8) };
             let string_bytes =
                 { std::slice::from_raw_parts_mut(string.as_mut_ptr() as *mut u8, 8) };
@@ -68,7 +65,7 @@ impl Deref for DLWString {
 
 impl AsRef<U16CStr> for DLWString {
     fn as_ref(&self) -> &U16CStr {
-        unsafe { self.deref() }
+        self.deref()
     }
 }
 
@@ -105,7 +102,7 @@ impl DLString {
 
         if s.len() >= 8 {
             let addr = s.as_ptr() as usize;
-            let mut str_ptr_bytes =
+            let str_ptr_bytes =
                 unsafe { std::slice::from_raw_parts(addr_of!(addr) as *const u8, 8) };
 
             for i in 0..str_ptr_bytes.len() {
@@ -125,7 +122,7 @@ impl DLString {
         DLString {
             string,
             length: s.len(),
-            capacity: s.len(),
+            capacity,
         }
     }
 
@@ -149,7 +146,7 @@ impl Deref for DLString {
 
 impl AsRef<CStr> for DLString {
     fn as_ref(&self) -> &CStr {
-        unsafe { self.deref() }
+        self.deref()
     }
 }
 
@@ -175,7 +172,6 @@ impl PartialEq<&str> for DLString {
 #[cfg(test)]
 mod tests {
     use crate::dl_string::*;
-    use std::mem;
     use std::mem::size_of;
 
     #[test]

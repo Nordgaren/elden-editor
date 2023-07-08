@@ -1,12 +1,12 @@
+#![allow(unused)]
 use crate::fmg_editor::structs::{
     FmgId, MsgRepositoryCategory, MsgRepositoryGroup, MsgRepositoryImp,
 };
 use crate::util;
-use std::ffi::c_void;
 use std::mem;
 use std::mem::size_of;
 use std::ptr::addr_of;
-use widestring::{u16cstr, U16CStr};
+use widestring::{U16CStr};
 use windows::Win32::System::Memory::{
     VirtualAlloc, MEM_COMMIT, MEM_RESERVE, PAGE_EXECUTE_READWRITE,
 };
@@ -122,7 +122,7 @@ impl FmgEditor {
     pub unsafe fn patch_entries(&mut self) {
         for i in (0..self.changed_entries.len()).rev() {
             let entry = &self.changed_entries[i];
-            let mut string = self.get_entry_mut(entry.id);
+            let string = self.get_entry_mut(entry.id);
             if entry.string.len() <= string.as_slice_with_nul().len() {
                 util::copy_slice(
                     &entry.string[..entry.string.len()],

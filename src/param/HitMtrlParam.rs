@@ -8,18 +8,18 @@ include!("defs/HIT_MTRL_PARAM_ST.rs");
 
 pub type HitMtrlParam = ParamStruct<HIT_MTRL_PARAM_ST>;
 impl Param for ParamStruct<HIT_MTRL_PARAM_ST> {
-    const NAME: &'static str = "HitMtrlParam";
-    const TYPE_NAME: &'static str = "HIT_MTRL_PARAM_ST";
-    const VERSION: u16 = 3;
+	const NAME: &'static str = "HitMtrlParam";
+	const TYPE_NAME: &'static str = "HIT_MTRL_PARAM_ST";
+	const VERSION: u16 = 3;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::HitMtrlParam::HitMtrlParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::HitMtrlParam::HitMtrlParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<HitMtrlParam>(), 100)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<HitMtrlParam>(), 100)
+	}
 }

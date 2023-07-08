@@ -1,3 +1,5 @@
+#[allow(unused)]
+
 pub mod structs;
 
 use crate::param::traits::*;
@@ -7,7 +9,6 @@ use std::mem;
 use std::mem::size_of;
 use std::ptr::addr_of;
 use structs::*;
-use widestring::U16CStr;
 
 pub struct ParamEditor<P: Param> {
     solo_param_repository: &'static SoloParamRepository,

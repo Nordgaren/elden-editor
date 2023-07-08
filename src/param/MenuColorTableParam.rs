@@ -8,18 +8,18 @@ include!("defs/MENU_PARAM_COLOR_TABLE_ST.rs");
 
 pub type MenuColorTableParam = ParamStruct<MENU_PARAM_COLOR_TABLE_ST>;
 impl Param for ParamStruct<MENU_PARAM_COLOR_TABLE_ST> {
-    const NAME: &'static str = "MenuColorTableParam";
-    const TYPE_NAME: &'static str = "MENU_PARAM_COLOR_TABLE_ST";
-    const VERSION: u16 = 2;
+	const NAME: &'static str = "MenuColorTableParam";
+	const TYPE_NAME: &'static str = "MENU_PARAM_COLOR_TABLE_ST";
+	const VERSION: u16 = 2;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::MenuColorTableParam::MenuColorTableParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::MenuColorTableParam::MenuColorTableParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<MenuColorTableParam>(), 32)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<MenuColorTableParam>(), 32)
+	}
 }

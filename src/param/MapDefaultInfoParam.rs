@@ -8,18 +8,18 @@ include!("defs/MAP_DEFAULT_INFO_PARAM_ST.rs");
 
 pub type MapDefaultInfoParam = ParamStruct<MAP_DEFAULT_INFO_PARAM_ST>;
 impl Param for ParamStruct<MAP_DEFAULT_INFO_PARAM_ST> {
-    const NAME: &'static str = "MapDefaultInfoParam";
-    const TYPE_NAME: &'static str = "MAP_DEFAULT_INFO_PARAM_ST";
-    const VERSION: u16 = 6;
+	const NAME: &'static str = "MapDefaultInfoParam";
+	const TYPE_NAME: &'static str = "MAP_DEFAULT_INFO_PARAM_ST";
+	const VERSION: u16 = 6;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::MapDefaultInfoParam::MapDefaultInfoParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::MapDefaultInfoParam::MapDefaultInfoParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<MapDefaultInfoParam>(), 64)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<MapDefaultInfoParam>(), 64)
+	}
 }

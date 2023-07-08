@@ -8,18 +8,18 @@ include!("defs/WEATHER_PARAM_ST.rs");
 
 pub type WeatherParam = ParamStruct<WEATHER_PARAM_ST>;
 impl Param for ParamStruct<WEATHER_PARAM_ST> {
-    const NAME: &'static str = "WeatherParam";
-    const TYPE_NAME: &'static str = "WEATHER_PARAM_ST";
-    const VERSION: u16 = 3;
+	const NAME: &'static str = "WeatherParam";
+	const TYPE_NAME: &'static str = "WEATHER_PARAM_ST";
+	const VERSION: u16 = 3;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::WeatherParam::WeatherParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::WeatherParam::WeatherParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<WeatherParam>(), 68)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<WeatherParam>(), 68)
+	}
 }

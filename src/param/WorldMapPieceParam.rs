@@ -8,18 +8,18 @@ include!("defs/WORLD_MAP_PIECE_PARAM_ST.rs");
 
 pub type WorldMapPieceParam = ParamStruct<WORLD_MAP_PIECE_PARAM_ST>;
 impl Param for ParamStruct<WORLD_MAP_PIECE_PARAM_ST> {
-    const NAME: &'static str = "WorldMapPieceParam";
-    const TYPE_NAME: &'static str = "WORLD_MAP_PIECE_PARAM_ST";
-    const VERSION: u16 = 2;
+	const NAME: &'static str = "WorldMapPieceParam";
+	const TYPE_NAME: &'static str = "WORLD_MAP_PIECE_PARAM_ST";
+	const VERSION: u16 = 2;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::WorldMapPieceParam::WorldMapPieceParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::WorldMapPieceParam::WorldMapPieceParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<WorldMapPieceParam>(), 64)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<WorldMapPieceParam>(), 64)
+	}
 }

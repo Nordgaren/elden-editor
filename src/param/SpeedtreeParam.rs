@@ -8,18 +8,18 @@ include!("defs/SPEEDTREE_MODEL_PARAM_ST.rs");
 
 pub type SpeedtreeParam = ParamStruct<SPEEDTREE_MODEL_PARAM_ST>;
 impl Param for ParamStruct<SPEEDTREE_MODEL_PARAM_ST> {
-    const NAME: &'static str = "SpeedtreeParam";
-    const TYPE_NAME: &'static str = "SPEEDTREE_MODEL_PARAM_ST";
-    const VERSION: u16 = 2;
+	const NAME: &'static str = "SpeedtreeParam";
+	const TYPE_NAME: &'static str = "SPEEDTREE_MODEL_PARAM_ST";
+	const VERSION: u16 = 2;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::SpeedtreeParam::SpeedtreeParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::SpeedtreeParam::SpeedtreeParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<SpeedtreeParam>(), 40)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<SpeedtreeParam>(), 40)
+	}
 }

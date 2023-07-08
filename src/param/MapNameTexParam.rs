@@ -8,18 +8,18 @@ include!("defs/MAP_NAME_TEX_PARAM_ST.rs");
 
 pub type MapNameTexParam = ParamStruct<MAP_NAME_TEX_PARAM_ST>;
 impl Param for ParamStruct<MAP_NAME_TEX_PARAM_ST> {
-    const NAME: &'static str = "MapNameTexParam";
-    const TYPE_NAME: &'static str = "MAP_NAME_TEX_PARAM_ST";
-    const VERSION: u16 = 1;
+	const NAME: &'static str = "MapNameTexParam";
+	const TYPE_NAME: &'static str = "MAP_NAME_TEX_PARAM_ST";
+	const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::MapNameTexParam::MapNameTexParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::MapNameTexParam::MapNameTexParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<MapNameTexParam>(), 16)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<MapNameTexParam>(), 16)
+	}
 }

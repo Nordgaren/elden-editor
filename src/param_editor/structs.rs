@@ -86,5 +86,6 @@ mod tests {
         assert_eq!(size_of::<RepositoryEntry>(), 0x48);
         assert_eq!(size_of::<IdRepositoryInfo>(), 0x10);
         assert_eq!(size_of::<IdRepositoryEntry>(), 0x8);
+        assert_eq!(size_of::<SoloParamRepository>(), 0x34D0);
     }
 }

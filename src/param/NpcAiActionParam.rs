@@ -8,18 +8,18 @@ include!("defs/NPC_AI_ACTION_PARAM_ST.rs");
 
 pub type NpcAiActionParam = ParamStruct<NPC_AI_ACTION_PARAM_ST>;
 impl Param for ParamStruct<NPC_AI_ACTION_PARAM_ST> {
-    const NAME: &'static str = "NpcAiActionParam";
-    const TYPE_NAME: &'static str = "NPC_AI_ACTION_PARAM_ST";
-    const VERSION: u16 = 1;
+	const NAME: &'static str = "NpcAiActionParam";
+	const TYPE_NAME: &'static str = "NPC_AI_ACTION_PARAM_ST";
+	const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::NpcAiActionParam::NpcAiActionParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::NpcAiActionParam::NpcAiActionParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<NpcAiActionParam>(), 16)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<NpcAiActionParam>(), 16)
+	}
 }

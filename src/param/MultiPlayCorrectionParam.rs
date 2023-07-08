@@ -8,18 +8,18 @@ include!("defs/MULTI_PLAY_CORRECTION_PARAM_ST.rs");
 
 pub type MultiPlayCorrectionParam = ParamStruct<MULTI_PLAY_CORRECTION_PARAM_ST>;
 impl Param for ParamStruct<MULTI_PLAY_CORRECTION_PARAM_ST> {
-    const NAME: &'static str = "MultiPlayCorrectionParam";
-    const TYPE_NAME: &'static str = "MULTI_PLAY_CORRECTION_PARAM_ST";
-    const VERSION: u16 = 3;
+	const NAME: &'static str = "MultiPlayCorrectionParam";
+	const TYPE_NAME: &'static str = "MULTI_PLAY_CORRECTION_PARAM_ST";
+	const VERSION: u16 = 3;
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::param::MultiPlayCorrectionParam::MultiPlayCorrectionParam;
-    use std::mem::size_of;
+	use std::mem::size_of;
+	use crate::param::MultiPlayCorrectionParam::MultiPlayCorrectionParam;
 
-    #[test]
-    fn size_check() {
-        assert_eq!(size_of::<MultiPlayCorrectionParam>(), 32)
-    }
+	#[test]
+	fn size_check() {
+		assert_eq!(size_of::<MultiPlayCorrectionParam>(), 32)
+	}
 }
