@@ -8,18 +8,18 @@ include!("defs/NETWORK_PARAM_ST.rs");
 
 pub type NetworkParam = ParamStruct<NETWORK_PARAM_ST>;
 impl Param for ParamStruct<NETWORK_PARAM_ST> {
-	const NAME: &'static str = "NetworkParam";
-	const TYPE_NAME: &'static str = "NETWORK_PARAM_ST";
-	const VERSION: u16 = 10;
+    const NAME: &'static str = "NetworkParam";
+    const TYPE_NAME: &'static str = "NETWORK_PARAM_ST";
+    const VERSION: u16 = 10;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::NetworkParam::NetworkParam;
+    use crate::param::NetworkParam::NetworkParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<NetworkParam>(), 632)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<NetworkParam>(), 632)
+    }
 }

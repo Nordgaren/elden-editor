@@ -8,18 +8,18 @@ include!("defs/BONFIRE_WARP_TAB_PARAM_ST.rs");
 
 pub type BonfireWarpTabParam = ParamStruct<BONFIRE_WARP_TAB_PARAM_ST>;
 impl Param for ParamStruct<BONFIRE_WARP_TAB_PARAM_ST> {
-	const NAME: &'static str = "BonfireWarpTabParam";
-	const TYPE_NAME: &'static str = "BONFIRE_WARP_TAB_PARAM_ST";
-	const VERSION: u16 = 2;
+    const NAME: &'static str = "BonfireWarpTabParam";
+    const TYPE_NAME: &'static str = "BONFIRE_WARP_TAB_PARAM_ST";
+    const VERSION: u16 = 2;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::BonfireWarpTabParam::BonfireWarpTabParam;
+    use crate::param::BonfireWarpTabParam::BonfireWarpTabParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<BonfireWarpTabParam>(), 16)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<BonfireWarpTabParam>(), 16)
+    }
 }

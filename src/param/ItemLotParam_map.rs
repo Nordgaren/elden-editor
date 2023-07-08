@@ -8,18 +8,18 @@ include!("defs/ITEMLOT_PARAM_ST.rs");
 
 pub type ItemLotParam_map = ParamStruct<ITEMLOT_PARAM_ST>;
 impl Param for ParamStruct<ITEMLOT_PARAM_ST> {
-	const NAME: &'static str = "ItemLotParam_map";
-	const TYPE_NAME: &'static str = "ITEMLOT_PARAM_ST";
-	const VERSION: u16 = 4;
+    const NAME: &'static str = "ItemLotParam_map";
+    const TYPE_NAME: &'static str = "ITEMLOT_PARAM_ST";
+    const VERSION: u16 = 4;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::ItemLotParam_map::ItemLotParam_map;
+    use crate::param::ItemLotParam_map::ItemLotParam_map;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<ItemLotParam_map>(), 152)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<ItemLotParam_map>(), 152)
+    }
 }

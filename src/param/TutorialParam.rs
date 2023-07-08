@@ -8,18 +8,18 @@ include!("defs/TUTORIAL_PARAM_ST.rs");
 
 pub type TutorialParam = ParamStruct<TUTORIAL_PARAM_ST>;
 impl Param for ParamStruct<TUTORIAL_PARAM_ST> {
-	const NAME: &'static str = "TutorialParam";
-	const TYPE_NAME: &'static str = "TUTORIAL_PARAM_ST";
-	const VERSION: u16 = 1;
+    const NAME: &'static str = "TutorialParam";
+    const TYPE_NAME: &'static str = "TUTORIAL_PARAM_ST";
+    const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::TutorialParam::TutorialParam;
+    use crate::param::TutorialParam::TutorialParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<TutorialParam>(), 32)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<TutorialParam>(), 32)
+    }
 }

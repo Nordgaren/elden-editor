@@ -8,18 +8,18 @@ include!("defs/GRASS_TYPE_PARAM_ST.rs");
 
 pub type GrassTypeParam = ParamStruct<GRASS_TYPE_PARAM_ST>;
 impl Param for ParamStruct<GRASS_TYPE_PARAM_ST> {
-	const NAME: &'static str = "GrassTypeParam";
-	const TYPE_NAME: &'static str = "GRASS_TYPE_PARAM_ST";
-	const VERSION: u16 = 1;
+    const NAME: &'static str = "GrassTypeParam";
+    const TYPE_NAME: &'static str = "GRASS_TYPE_PARAM_ST";
+    const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::GrassTypeParam::GrassTypeParam;
+    use crate::param::GrassTypeParam::GrassTypeParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<GrassTypeParam>(), 276)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<GrassTypeParam>(), 276)
+    }
 }

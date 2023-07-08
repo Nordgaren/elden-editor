@@ -8,18 +8,18 @@ include!("defs/CHR_MODEL_PARAM_ST.rs");
 
 pub type ChrModelParam = ParamStruct<CHR_MODEL_PARAM_ST>;
 impl Param for ParamStruct<CHR_MODEL_PARAM_ST> {
-	const NAME: &'static str = "ChrModelParam";
-	const TYPE_NAME: &'static str = "CHR_MODEL_PARAM_ST";
-	const VERSION: u16 = 2;
+    const NAME: &'static str = "ChrModelParam";
+    const TYPE_NAME: &'static str = "CHR_MODEL_PARAM_ST";
+    const VERSION: u16 = 2;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::ChrModelParam::ChrModelParam;
+    use crate::param::ChrModelParam::ChrModelParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<ChrModelParam>(), 16)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<ChrModelParam>(), 16)
+    }
 }

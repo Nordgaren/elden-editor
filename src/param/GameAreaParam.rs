@@ -8,18 +8,18 @@ include!("defs/GAME_AREA_PARAM_ST.rs");
 
 pub type GameAreaParam = ParamStruct<GAME_AREA_PARAM_ST>;
 impl Param for ParamStruct<GAME_AREA_PARAM_ST> {
-	const NAME: &'static str = "GameAreaParam";
-	const TYPE_NAME: &'static str = "GAME_AREA_PARAM_ST";
-	const VERSION: u16 = 3;
+    const NAME: &'static str = "GameAreaParam";
+    const TYPE_NAME: &'static str = "GAME_AREA_PARAM_ST";
+    const VERSION: u16 = 3;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::GameAreaParam::GameAreaParam;
+    use crate::param::GameAreaParam::GameAreaParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<GameAreaParam>(), 96)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<GameAreaParam>(), 96)
+    }
 }

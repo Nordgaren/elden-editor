@@ -8,18 +8,18 @@ include!("defs/NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST.rs");
 
 pub type NpcAiBehaviorProbability = ParamStruct<NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST>;
 impl Param for ParamStruct<NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST> {
-	const NAME: &'static str = "NpcAiBehaviorProbability";
-	const TYPE_NAME: &'static str = "NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST";
-	const VERSION: u16 = 2;
+    const NAME: &'static str = "NpcAiBehaviorProbability";
+    const TYPE_NAME: &'static str = "NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST";
+    const VERSION: u16 = 2;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::NpcAiBehaviorProbability::NpcAiBehaviorProbability;
+    use crate::param::NpcAiBehaviorProbability::NpcAiBehaviorProbability;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<NpcAiBehaviorProbability>(), 400)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<NpcAiBehaviorProbability>(), 400)
+    }
 }

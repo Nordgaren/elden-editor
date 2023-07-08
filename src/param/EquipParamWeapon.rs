@@ -8,18 +8,18 @@ include!("defs/EQUIP_PARAM_WEAPON_ST.rs");
 
 pub type EquipParamWeapon = ParamStruct<EQUIP_PARAM_WEAPON_ST>;
 impl Param for ParamStruct<EQUIP_PARAM_WEAPON_ST> {
-	const NAME: &'static str = "EquipParamWeapon";
-	const TYPE_NAME: &'static str = "EQUIP_PARAM_WEAPON_ST";
-	const VERSION: u16 = 6;
+    const NAME: &'static str = "EquipParamWeapon";
+    const TYPE_NAME: &'static str = "EQUIP_PARAM_WEAPON_ST";
+    const VERSION: u16 = 6;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::EquipParamWeapon::EquipParamWeapon;
+    use crate::param::EquipParamWeapon::EquipParamWeapon;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<EquipParamWeapon>(), 664)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<EquipParamWeapon>(), 664)
+    }
 }

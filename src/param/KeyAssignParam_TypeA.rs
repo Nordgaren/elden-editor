@@ -8,18 +8,18 @@ include!("defs/KEY_ASSIGN_PARAM_ST.rs");
 
 pub type KeyAssignParam_TypeA = ParamStruct<KEY_ASSIGN_PARAM_ST>;
 impl Param for ParamStruct<KEY_ASSIGN_PARAM_ST> {
-	const NAME: &'static str = "KeyAssignParam_TypeA";
-	const TYPE_NAME: &'static str = "KEY_ASSIGN_PARAM_ST";
-	const VERSION: u16 = 1;
+    const NAME: &'static str = "KeyAssignParam_TypeA";
+    const TYPE_NAME: &'static str = "KEY_ASSIGN_PARAM_ST";
+    const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::KeyAssignParam_TypeA::KeyAssignParam_TypeA;
+    use crate::param::KeyAssignParam_TypeA::KeyAssignParam_TypeA;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<KeyAssignParam_TypeA>(), 32)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<KeyAssignParam_TypeA>(), 32)
+    }
 }

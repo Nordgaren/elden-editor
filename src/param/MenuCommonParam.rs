@@ -8,18 +8,18 @@ include!("defs/MENU_COMMON_PARAM_ST.rs");
 
 pub type MenuCommonParam = ParamStruct<MENU_COMMON_PARAM_ST>;
 impl Param for ParamStruct<MENU_COMMON_PARAM_ST> {
-	const NAME: &'static str = "MenuCommonParam";
-	const TYPE_NAME: &'static str = "MENU_COMMON_PARAM_ST";
-	const VERSION: u16 = 1;
+    const NAME: &'static str = "MenuCommonParam";
+    const TYPE_NAME: &'static str = "MENU_COMMON_PARAM_ST";
+    const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::MenuCommonParam::MenuCommonParam;
+    use crate::param::MenuCommonParam::MenuCommonParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<MenuCommonParam>(), 256)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<MenuCommonParam>(), 256)
+    }
 }

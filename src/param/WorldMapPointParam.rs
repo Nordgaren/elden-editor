@@ -8,18 +8,18 @@ include!("defs/WORLD_MAP_POINT_PARAM_ST.rs");
 
 pub type WorldMapPointParam = ParamStruct<WORLD_MAP_POINT_PARAM_ST>;
 impl Param for ParamStruct<WORLD_MAP_POINT_PARAM_ST> {
-	const NAME: &'static str = "WorldMapPointParam";
-	const TYPE_NAME: &'static str = "WORLD_MAP_POINT_PARAM_ST";
-	const VERSION: u16 = 6;
+    const NAME: &'static str = "WorldMapPointParam";
+    const TYPE_NAME: &'static str = "WORLD_MAP_POINT_PARAM_ST";
+    const VERSION: u16 = 6;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::WorldMapPointParam::WorldMapPointParam;
+    use crate::param::WorldMapPointParam::WorldMapPointParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<WorldMapPointParam>(), 256)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<WorldMapPointParam>(), 256)
+    }
 }

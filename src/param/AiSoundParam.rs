@@ -8,18 +8,18 @@ include!("defs/AI_SOUND_PARAM_ST.rs");
 
 pub type AiSoundParam = ParamStruct<AI_SOUND_PARAM_ST>;
 impl Param for ParamStruct<AI_SOUND_PARAM_ST> {
-	const NAME: &'static str = "AiSoundParam";
-	const TYPE_NAME: &'static str = "AI_SOUND_PARAM_ST";
-	const VERSION: u16 = 1;
+    const NAME: &'static str = "AiSoundParam";
+    const TYPE_NAME: &'static str = "AI_SOUND_PARAM_ST";
+    const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::AiSoundParam::AiSoundParam;
+    use crate::param::AiSoundParam::AiSoundParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<AiSoundParam>(), 32)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<AiSoundParam>(), 32)
+    }
 }

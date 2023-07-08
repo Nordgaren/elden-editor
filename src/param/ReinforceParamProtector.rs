@@ -8,18 +8,18 @@ include!("defs/REINFORCE_PARAM_PROTECTOR_ST.rs");
 
 pub type ReinforceParamProtector = ParamStruct<REINFORCE_PARAM_PROTECTOR_ST>;
 impl Param for ParamStruct<REINFORCE_PARAM_PROTECTOR_ST> {
-	const NAME: &'static str = "ReinforceParamProtector";
-	const TYPE_NAME: &'static str = "REINFORCE_PARAM_PROTECTOR_ST";
-	const VERSION: u16 = 1;
+    const NAME: &'static str = "ReinforceParamProtector";
+    const TYPE_NAME: &'static str = "REINFORCE_PARAM_PROTECTOR_ST";
+    const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::ReinforceParamProtector::ReinforceParamProtector;
+    use crate::param::ReinforceParamProtector::ReinforceParamProtector;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<ReinforceParamProtector>(), 64)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<ReinforceParamProtector>(), 64)
+    }
 }

@@ -8,18 +8,18 @@ include!("defs/LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST.rs");
 
 pub type LoadBalancerDrawDistScaleParam = ParamStruct<LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST>;
 impl Param for ParamStruct<LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST> {
-	const NAME: &'static str = "LoadBalancerDrawDistScaleParam";
-	const TYPE_NAME: &'static str = "LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST";
-	const VERSION: u16 = 0;
+    const NAME: &'static str = "LoadBalancerDrawDistScaleParam";
+    const TYPE_NAME: &'static str = "LOAD_BALANCER_DRAW_DIST_SCALE_PARAM_ST";
+    const VERSION: u16 = 0;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::LoadBalancerDrawDistScaleParam::LoadBalancerDrawDistScaleParam;
+    use crate::param::LoadBalancerDrawDistScaleParam::LoadBalancerDrawDistScaleParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<LoadBalancerDrawDistScaleParam>(), 128)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<LoadBalancerDrawDistScaleParam>(), 128)
+    }
 }

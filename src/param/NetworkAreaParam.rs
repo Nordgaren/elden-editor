@@ -8,18 +8,18 @@ include!("defs/NETWORK_AREA_PARAM_ST.rs");
 
 pub type NetworkAreaParam = ParamStruct<NETWORK_AREA_PARAM_ST>;
 impl Param for ParamStruct<NETWORK_AREA_PARAM_ST> {
-	const NAME: &'static str = "NetworkAreaParam";
-	const TYPE_NAME: &'static str = "NETWORK_AREA_PARAM_ST";
-	const VERSION: u16 = 4;
+    const NAME: &'static str = "NetworkAreaParam";
+    const TYPE_NAME: &'static str = "NETWORK_AREA_PARAM_ST";
+    const VERSION: u16 = 4;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::NetworkAreaParam::NetworkAreaParam;
+    use crate::param::NetworkAreaParam::NetworkAreaParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<NetworkAreaParam>(), 28)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<NetworkAreaParam>(), 28)
+    }
 }

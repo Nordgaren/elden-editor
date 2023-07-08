@@ -8,18 +8,18 @@ include!("defs/GRASS_LOD_RANGE_PARAM_ST.rs");
 
 pub type GrassLodRangeParam = ParamStruct<GRASS_LOD_RANGE_PARAM_ST>;
 impl Param for ParamStruct<GRASS_LOD_RANGE_PARAM_ST> {
-	const NAME: &'static str = "GrassLodRangeParam";
-	const TYPE_NAME: &'static str = "GRASS_LOD_RANGE_PARAM_ST";
-	const VERSION: u16 = 1;
+    const NAME: &'static str = "GrassLodRangeParam";
+    const TYPE_NAME: &'static str = "GRASS_LOD_RANGE_PARAM_ST";
+    const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::GrassLodRangeParam::GrassLodRangeParam;
+    use crate::param::GrassLodRangeParam::GrassLodRangeParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<GrassLodRangeParam>(), 24)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<GrassLodRangeParam>(), 24)
+    }
 }

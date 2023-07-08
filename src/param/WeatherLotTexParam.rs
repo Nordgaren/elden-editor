@@ -8,18 +8,18 @@ include!("defs/WEATHER_LOT_TEX_PARAM_ST.rs");
 
 pub type WeatherLotTexParam = ParamStruct<WEATHER_LOT_TEX_PARAM_ST>;
 impl Param for ParamStruct<WEATHER_LOT_TEX_PARAM_ST> {
-	const NAME: &'static str = "WeatherLotTexParam";
-	const TYPE_NAME: &'static str = "WEATHER_LOT_TEX_PARAM_ST";
-	const VERSION: u16 = 1;
+    const NAME: &'static str = "WeatherLotTexParam";
+    const TYPE_NAME: &'static str = "WEATHER_LOT_TEX_PARAM_ST";
+    const VERSION: u16 = 1;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::WeatherLotTexParam::WeatherLotTexParam;
+    use crate::param::WeatherLotTexParam::WeatherLotTexParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<WeatherLotTexParam>(), 16)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<WeatherLotTexParam>(), 16)
+    }
 }

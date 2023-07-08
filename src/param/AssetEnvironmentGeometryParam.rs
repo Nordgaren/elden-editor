@@ -8,18 +8,18 @@ include!("defs/ASSET_GEOMETORY_PARAM_ST.rs");
 
 pub type AssetEnvironmentGeometryParam = ParamStruct<ASSET_GEOMETORY_PARAM_ST>;
 impl Param for ParamStruct<ASSET_GEOMETORY_PARAM_ST> {
-	const NAME: &'static str = "AssetEnvironmentGeometryParam";
-	const TYPE_NAME: &'static str = "ASSET_GEOMETORY_PARAM_ST";
-	const VERSION: u16 = 6;
+    const NAME: &'static str = "AssetEnvironmentGeometryParam";
+    const TYPE_NAME: &'static str = "ASSET_GEOMETORY_PARAM_ST";
+    const VERSION: u16 = 6;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::AssetEnvironmentGeometryParam::AssetEnvironmentGeometryParam;
+    use crate::param::AssetEnvironmentGeometryParam::AssetEnvironmentGeometryParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<AssetEnvironmentGeometryParam>(), 320)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<AssetEnvironmentGeometryParam>(), 320)
+    }
 }

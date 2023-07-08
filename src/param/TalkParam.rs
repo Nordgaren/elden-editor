@@ -8,18 +8,18 @@ include!("defs/TALK_PARAM_ST.rs");
 
 pub type TalkParam = ParamStruct<TALK_PARAM_ST>;
 impl Param for ParamStruct<TALK_PARAM_ST> {
-	const NAME: &'static str = "TalkParam";
-	const TYPE_NAME: &'static str = "TALK_PARAM_ST";
-	const VERSION: u16 = 4;
+    const NAME: &'static str = "TalkParam";
+    const TYPE_NAME: &'static str = "TALK_PARAM_ST";
+    const VERSION: u16 = 4;
 }
 
 #[cfg(test)]
 mod tests {
-	use std::mem::size_of;
-	use crate::param::TalkParam::TalkParam;
+    use crate::param::TalkParam::TalkParam;
+    use std::mem::size_of;
 
-	#[test]
-	fn size_check() {
-		assert_eq!(size_of::<TalkParam>(), 96)
-	}
+    #[test]
+    fn size_check() {
+        assert_eq!(size_of::<TalkParam>(), 96)
+    }
 }
