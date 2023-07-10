@@ -4,40 +4,37 @@ use std::ptr::addr_of;
 use widestring::{u16cstr, U16CStr};
 
 #[repr(C)]
+pub(crate) union DLWStringUnion {
+    pub string_long: *const u16,
+    pub string_short: [u16; 0x8],
+}
+
+#[repr(C)]
 pub(crate) struct DLWString {
-    pub string: [u16; 0x8],
+    pub string: DLWStringUnion,
     pub length: usize,
     pub capacity: usize,
 }
 
 impl DLWString {
     pub unsafe fn from_u16cstr(s: &U16CStr) -> DLWString {
-        let mut string = [0u16; 8];
+        let mut union = DLWStringUnion { string_short: [0;0x8] };
         let capacity;
 
         if s.len() >= 8 {
-            let addr = s.as_ptr() as usize;
-            let str_ptr_bytes =
-                unsafe { std::slice::from_raw_parts(addr_of!(addr) as *const u8, 8) };
-            let string_bytes =
-                { std::slice::from_raw_parts_mut(string.as_mut_ptr() as *mut u8, 8) };
-
-            for i in 0..str_ptr_bytes.len() {
-                string_bytes[i] = str_ptr_bytes[i]
-            }
-
             capacity = s.len();
+            union.string_long = s.as_ptr();
         } else {
+            capacity = union.string_short.len();
             let buffer = s.as_slice();
             for i in 0..s.len() {
-                string[i] = buffer[i]
+                union.string_short[i] = buffer[i]
             }
-
-            capacity = string.len()
         }
 
+
         DLWString {
-            string,
+            string: union,
             length: s.len(),
             capacity,
         }
@@ -45,11 +42,10 @@ impl DLWString {
 
     pub unsafe fn get_string_bytes(&self) -> &'static [u16] {
         if self.length >= 8 {
-            let ptr = self.string.as_ptr() as *const *const u16;
-            return std::slice::from_raw_parts(*ptr, self.length as usize);
+            return std::slice::from_raw_parts(self.string.string_long, self.length);
         }
 
-        std::slice::from_raw_parts(self.string.as_ptr(), self.length as usize)
+        std::slice::from_raw_parts(self.string.string_short.as_ptr(), self.length)
     }
 }
 
@@ -58,7 +54,7 @@ impl Deref for DLWString {
 
     fn deref(&self) -> &Self::Target {
         unsafe {
-            U16CStr::from_ptr_unchecked(self.get_string_bytes().as_ptr(), self.length as usize)
+            U16CStr::from_ptr_unchecked(self.get_string_bytes().as_ptr(), self.length)
         }
     }
 }
@@ -71,7 +67,7 @@ impl AsRef<U16CStr> for DLWString {
 
 impl PartialEq<&str> for DLWString {
     fn eq(&self, other: &&str) -> bool {
-        if other.len() != self.length as usize {
+        if other.len() != self.length {
             return false;
         }
 
@@ -89,38 +85,38 @@ impl PartialEq<&U16CStr> for DLWString {
 }
 
 #[repr(C)]
+pub(crate) union DLStringUnion {
+    pub string_long: *const u8,
+    pub string_short: [u8; 0x10],
+}
+
+#[repr(C)]
 pub(crate) struct DLString {
-    pub string: [u8; 0x10],
+    pub string: DLStringUnion,
     pub length: usize,
     pub capacity: usize,
 }
 
 impl DLString {
     pub unsafe fn from_str(s: &str) -> DLString {
-        let mut string = [0u8; 16];
+        let mut union= DLStringUnion { string_short: [0;0x10]};
         let capacity;
 
         if s.len() >= 8 {
-            let addr = s.as_ptr() as usize;
-            let str_ptr_bytes =
-                unsafe { std::slice::from_raw_parts(addr_of!(addr) as *const u8, 8) };
-
-            for i in 0..str_ptr_bytes.len() {
-                string[i] = str_ptr_bytes[i]
-            }
-
             capacity = s.len();
+            union.string_long = s.as_ptr();
+
         } else {
+            capacity = union.string_short.len();
             let buffer = s.as_bytes();
             for i in 0..s.len() {
-                string[i] = buffer[i]
+                union.string_short[i] = buffer[i]
             }
 
-            capacity = string.len()
         }
 
         DLString {
-            string,
+            string: union,
             length: s.len(),
             capacity,
         }
@@ -128,11 +124,10 @@ impl DLString {
 
     pub unsafe fn get_string_bytes(&self) -> &'static [u8] {
         if self.length >= 8 {
-            let ptr = self.string.as_ptr() as *const *const u8;
-            return std::slice::from_raw_parts(*ptr, self.length as usize);
+            return std::slice::from_raw_parts(self.string.string_long, self.length);
         }
 
-        std::slice::from_raw_parts(self.string.as_ptr(), self.length as usize)
+        std::slice::from_raw_parts(self.string.string_short.as_ptr(), self.length)
     }
 }
 
