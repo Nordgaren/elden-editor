@@ -47,6 +47,13 @@ impl DLWString {
 
         std::slice::from_raw_parts(self.string.string_short.as_ptr(), self.length)
     }
+    pub unsafe fn get_string_ptr(&self) -> * const u16 {
+        if self.length >= 8 {
+            return self.string.string_long;
+        }
+
+        self.string.string_short.as_ptr()
+    }
 }
 
 impl Deref for DLWString {
@@ -54,7 +61,7 @@ impl Deref for DLWString {
 
     fn deref(&self) -> &Self::Target {
         unsafe {
-            U16CStr::from_ptr_unchecked(self.get_string_bytes().as_ptr(), self.length)
+            U16CStr::from_ptr_unchecked(self.get_string_ptr(), self.length)
         }
     }
 }
@@ -86,8 +93,8 @@ impl PartialEq<&U16CStr> for DLWString {
 
 #[repr(C)]
 pub(crate) union DLStringUnion {
-    pub string_long: *const u8,
-    pub string_short: [u8; 0x10],
+    pub string_long: *const c_char,
+    pub string_short: [c_char; 0x10],
 }
 
 #[repr(C)]
@@ -104,13 +111,13 @@ impl DLString {
 
         if s.len() >= 8 {
             capacity = s.len();
-            union.string_long = s.as_ptr();
+            union.string_long = s.as_ptr() as *const c_char;
 
         } else {
             capacity = union.string_short.len();
             let buffer = s.as_bytes();
             for i in 0..s.len() {
-                union.string_short[i] = buffer[i]
+                union.string_short[i] = buffer[i] as i8
             }
 
         }
@@ -122,12 +129,19 @@ impl DLString {
         }
     }
 
-    pub unsafe fn get_string_bytes(&self) -> &'static [u8] {
+    pub unsafe fn get_string_bytes(&self) -> &'static [c_char] {
         if self.length >= 8 {
             return std::slice::from_raw_parts(self.string.string_long, self.length);
         }
 
         std::slice::from_raw_parts(self.string.string_short.as_ptr(), self.length)
+    }
+    pub unsafe fn get_string_ptr(&self) -> *const c_char {
+        if self.length >= 8 {
+            return self.string.string_long
+        }
+
+        self.string.string_short.as_ptr()
     }
 }
 
@@ -135,7 +149,7 @@ impl Deref for DLString {
     type Target = CStr;
 
     fn deref(&self) -> &Self::Target {
-        unsafe { CStr::from_ptr(self.get_string_bytes().as_ptr() as *const c_char) }
+        unsafe { CStr::from_ptr(self.get_string_ptr()) }
     }
 }
 
