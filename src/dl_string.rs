@@ -1,16 +1,21 @@
 use std::ffi::{c_char, CStr};
 use std::ops::Deref;
-use std::ptr::addr_of;
 use widestring::{u16cstr, U16CStr};
 
 #[repr(C)]
-pub(crate) union DLWStringUnion {
-    pub string_long: *const u16,
-    pub string_short: [u16; 0x8],
+pub struct AllocatedDLWString {
+    pub allocator: usize,
+    pub string: DLWString,
 }
 
 #[repr(C)]
-pub(crate) struct DLWString {
+pub union DLWStringUnion {
+    pub ptr: *const u16,
+    pub buffer: [u16; 0x8],
+}
+
+#[repr(C)]
+pub struct DLWString {
     pub string: DLWStringUnion,
     pub length: usize,
     pub capacity: usize,
@@ -18,41 +23,38 @@ pub(crate) struct DLWString {
 
 impl DLWString {
     pub unsafe fn from_u16cstr(s: &U16CStr) -> DLWString {
-        let mut union = DLWStringUnion { string_short: [0;0x8] };
-        let capacity;
-
         if s.len() >= 8 {
-            capacity = s.len();
-            union.string_long = s.as_ptr();
-        } else {
-            capacity = union.string_short.len();
-            let buffer = s.as_slice();
-            for i in 0..s.len() {
-                union.string_short[i] = buffer[i]
-            }
+            return DLWString {
+                string: DLWStringUnion { ptr: s.as_ptr() },
+                length: s.len(),
+                capacity: s.len(),
+            };
         }
-
-
+        let mut string = DLWStringUnion { buffer: [0; 0x8] };
+        let buffer = s.as_slice();
+        for i in 0..s.len() {
+            string.buffer[i] = buffer[i]
+        }
         DLWString {
-            string: union,
+            capacity: string.buffer.len(),
+            string,
             length: s.len(),
-            capacity,
         }
     }
 
     pub unsafe fn get_string_bytes(&self) -> &'static [u16] {
-        if self.length >= 8 {
-            return std::slice::from_raw_parts(self.string.string_long, self.length);
+        if self.string.ptr.is_null() {
+            return &[0; 1];
         }
 
-        std::slice::from_raw_parts(self.string.string_short.as_ptr(), self.length)
+        std::slice::from_raw_parts(self.get_string_ptr(), self.length)
     }
-    pub unsafe fn get_string_ptr(&self) -> * const u16 {
+    pub unsafe fn get_string_ptr(&self) -> *const u16 {
         if self.length >= 8 {
-            return self.string.string_long;
+            return self.string.ptr;
         }
 
-        self.string.string_short.as_ptr()
+        self.string.buffer.as_ptr()
     }
 }
 
@@ -61,7 +63,7 @@ impl Deref for DLWString {
 
     fn deref(&self) -> &Self::Target {
         unsafe {
-            U16CStr::from_ptr_unchecked(self.get_string_ptr(), self.length)
+            U16CStr::from_ptr_str(self.get_string_ptr())
         }
     }
 }
@@ -92,13 +94,13 @@ impl PartialEq<&U16CStr> for DLWString {
 }
 
 #[repr(C)]
-pub(crate) union DLStringUnion {
-    pub string_long: *const c_char,
-    pub string_short: [c_char; 0x10],
+pub union DLStringUnion {
+    pub ptr: *const c_char,
+    pub buffer: [c_char; 0x10],
 }
 
 #[repr(C)]
-pub(crate) struct DLString {
+pub struct DLString {
     pub string: DLStringUnion,
     pub length: usize,
     pub capacity: usize,
@@ -106,42 +108,39 @@ pub(crate) struct DLString {
 
 impl DLString {
     pub unsafe fn from_str(s: &str) -> DLString {
-        let mut union= DLStringUnion { string_short: [0;0x10]};
-        let capacity;
-
         if s.len() >= 8 {
-            capacity = s.len();
-            union.string_long = s.as_ptr() as *const c_char;
-
-        } else {
-            capacity = union.string_short.len();
-            let buffer = s.as_bytes();
-            for i in 0..s.len() {
-                union.string_short[i] = buffer[i] as i8
-            }
-
+            return DLString {
+                string: DLStringUnion { ptr: s.as_ptr() as *const c_char },
+                length: s.len(),
+                capacity: s.len(),
+            };
         }
 
+        let mut string = DLStringUnion { buffer: [0; 0x10] };
+        let buffer = s.as_bytes();
+        for i in 0..s.len() {
+            string.buffer[i] = buffer[i] as i8
+        }
         DLString {
-            string: union,
+            capacity: string.buffer.len(),
+            string,
             length: s.len(),
-            capacity,
         }
     }
 
     pub unsafe fn get_string_bytes(&self) -> &'static [c_char] {
-        if self.length >= 8 {
-            return std::slice::from_raw_parts(self.string.string_long, self.length);
+        if self.string.ptr.is_null() {
+            return &[0; 1];
         }
 
-        std::slice::from_raw_parts(self.string.string_short.as_ptr(), self.length)
+        std::slice::from_raw_parts(self.get_string_ptr(), self.length)
     }
     pub unsafe fn get_string_ptr(&self) -> *const c_char {
-        if self.length >= 8 {
-            return self.string.string_long
+        if self.length >= 0x10 {
+            return self.string.ptr;
         }
 
-        self.string.string_short.as_ptr()
+        self.string.buffer.as_ptr()
     }
 }
 

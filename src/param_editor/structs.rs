@@ -16,7 +16,7 @@ pub struct ParamTable {
     pub param_id: i32,
     pub pad0x4: u32,
     pub param_offset: u32,
-    pub pad0x_c: u32,
+    pub pad0xc: u32,
     pub string_offset: u32,
     pub pad0x14: u32,
 }
