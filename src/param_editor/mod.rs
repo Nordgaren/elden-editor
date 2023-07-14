@@ -122,6 +122,12 @@ impl<P: Param> ParamEditor<P> {
         }
         None
     }
+    pub unsafe fn get_param_from_table(&self, table: &ParamTable) ->&'static P {
+        self.get_param_from_table_mut(table)
+    }
+    pub unsafe fn get_param_from_table_mut(&self, table: &ParamTable) ->&'static mut P {
+            mem::transmute(addr_of!(*self.param_header) as usize + table.param_offset as usize)
+    }
     unsafe fn find_param_res_cap(&self) -> Option<&'static ParamResCap> {
         let solo_param_entries = &self.solo_param_repository.repository_entries;
 
