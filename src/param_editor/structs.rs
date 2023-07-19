@@ -12,7 +12,16 @@ pub(super) struct SoloParamRepository {
 }
 
 #[repr(C)]
-pub struct ParamTable {
+pub(super) struct RepositoryEntry {
+    pub param_loaded: bool,
+    pub undefined0x1: [u8; 0x3],
+    pub pad0x4: u32,
+    pub param: &'static ParamResCap,
+    pub undefined0x10: [u8; 0x38],
+}
+
+#[repr(C)]
+pub struct TableEntry {
     pub param_id: i32,
     pub pad0x4: u32,
     pub param_offset: u32,
@@ -31,7 +40,7 @@ pub struct ParamHeader {
     pub undefined0x18: [u8; 0x18],
     pub data_offset: u32,
     pub undefined0x34: [u8; 0xC],
-    pub table: ParamTable,
+    pub param_table: TableEntry,
 }
 
 #[repr(C)]
@@ -48,15 +57,6 @@ pub(super) struct ParamResCap {
     pub param_name: DLWString,
     pub undefined0x38: [u8; 0x48],
     pub param_info: &'static ParamInfo,
-}
-
-#[repr(C)]
-pub(super) struct RepositoryEntry {
-    pub param_loaded: bool,
-    pub undefined0x1: [u8; 0x3],
-    pub pad0x4: u32,
-    pub param: &'static ParamResCap,
-    pub undefined0x10: [u8; 0x38],
 }
 
 #[repr(C)]
@@ -79,7 +79,7 @@ mod tests {
 
     #[test]
     fn size_check() {
-        assert_eq!(size_of::<ParamTable>(), 0x18);
+        assert_eq!(size_of::<TableEntry>(), 0x18);
         assert_eq!(size_of::<ParamHeader>(), 0x58);
         assert_eq!(size_of::<ParamInfo>(), 0x88);
         assert_eq!(size_of::<ParamResCap>(), 0x88);

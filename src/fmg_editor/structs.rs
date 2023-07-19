@@ -1,3 +1,5 @@
+use std::ops::{Deref, DerefMut};
+
 #[derive(Copy, Clone)]
 pub enum FmgId {
     TalkMsg = 1,
@@ -43,37 +45,60 @@ pub enum FmgId {
     TextEmbedImageNameWin64 = 209,
     ToSWin64 = 210,
 }
+
 #[repr(C)]
 pub(super) struct MsgRepositoryImp {
-    pub vtable: usize,
-    pub categories: *mut *mut &'static mut MsgRepositoryCategory,
-    pub version_count: u32,
-    pub category_capacity: u32,
-    pub unk0x18: usize,
-    pub unk0x20: usize,
-    pub unk0x28: usize,
-    pub unk0x30: usize,
-    pub unk0x38: u32,
-    pub unk0x3c: u32,
-    pub unk0x40: u32,
-    pub unk0x44: u32,
+    vtable: usize,
+    categories: *mut *mut *mut MsgRepositoryCategory,
+    version_count: u32,
+    category_capacity: u32,
+    unk0x18: usize,
+    unk0x20: usize,
+    unk0x28: usize,
+    unk0x30: usize,
+    unk0x38: u32,
+    unk0x3c: u32,
+    unk0x40: u32,
+    unk0x44: u32,
+}
+
+pub(super) struct MsgRepositoryImpPtr {
+    address: *mut MsgRepositoryImp,
+}
+
+impl Deref for MsgRepositoryImpPtr {
+    type Target = MsgRepositoryImp;
+
+    fn deref(&self) -> &Self::Target {
+        unsafe {
+            &*self.address
+        }
+    }
+}
+
+impl DerefMut for MsgRepositoryImpPtr {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        unsafe {
+            &mut *self.address
+        }
+    }
 }
 
 impl MsgRepositoryImp {
     pub(super) unsafe fn get_version_array(
         &self,
-    ) -> &'static [*mut &'static MsgRepositoryCategory] {
+    ) -> &'static [*mut *const MsgRepositoryCategory] {
         std::slice::from_raw_parts(self.categories as _, self.version_count as usize)
     }
     pub(super) unsafe fn get_version_array_mut(
         &self,
-    ) -> &'static mut [*mut &'static mut MsgRepositoryCategory] {
+    ) -> &'static mut [*mut *mut MsgRepositoryCategory] {
         std::slice::from_raw_parts_mut(self.categories, self.version_count as usize)
     }
     pub(super) unsafe fn get_category_array(
         &self,
         version: usize,
-    ) -> &'static [&'static MsgRepositoryCategory] {
+    ) -> &'static [*const MsgRepositoryCategory] {
         std::slice::from_raw_parts(
             self.get_version_array()[version],
             self.category_capacity as usize,
@@ -82,7 +107,7 @@ impl MsgRepositoryImp {
     pub(super) unsafe fn get_category_array_mut(
         &self,
         version: usize,
-    ) -> &'static mut [&'static mut MsgRepositoryCategory] {
+    ) -> &'static mut [*mut MsgRepositoryCategory] {
         std::slice::from_raw_parts_mut(
             self.get_version_array_mut()[version],
             self.category_capacity as usize,
@@ -92,15 +117,15 @@ impl MsgRepositoryImp {
         &self,
         version: usize,
         fmg: FmgId,
-    ) -> &'static MsgRepositoryCategory {
-        self.get_category_array(version)[fmg as usize]
+    ) -> MsgRepositoryCategoryPtr {
+        self.get_category_array(version)[fmg as usize].into()
     }
     pub unsafe fn get_category_mut(
         &self,
         version: usize,
         fmg: FmgId,
-    ) -> &'static mut MsgRepositoryCategory {
-        self.get_category_array_mut(version)[fmg as usize]
+    ) -> MsgRepositoryCategoryPtr {
+        self.get_category_array_mut(version)[fmg as usize].into()
     }
 }
 
@@ -118,7 +143,7 @@ pub struct MsgRepositoryCategory {
     pub group_count: u32,
     pub string_count: u32,
     pub is_0xff: u32,
-    pub string_offset: *mut usize,
+    pub string_offsets: *mut usize,
     pub undefined0x20: u8,
     pub undefined0x21: u8,
     pub undefined0x22: u8,
@@ -128,6 +153,49 @@ pub struct MsgRepositoryCategory {
     pub undefined0x26: u8,
     pub undefined0x27: u8,
 }
+#[derive(Copy, Clone)]
+pub(super) struct MsgRepositoryCategoryPtr {
+    address: *mut MsgRepositoryCategory,
+}
+
+impl Default for MsgRepositoryCategoryPtr {
+    fn default() -> Self {
+        MsgRepositoryCategoryPtr {
+            address: 0 as *mut MsgRepositoryCategory,
+        }
+    }
+}
+
+impl Deref for MsgRepositoryCategoryPtr {
+    type Target = MsgRepositoryCategory;
+
+    fn deref(&self) -> &Self::Target {
+        unsafe {
+            &*self.address
+        }
+    }
+}
+
+impl DerefMut for MsgRepositoryCategoryPtr {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        unsafe {
+            &mut *self.address
+        }
+    }
+}
+
+impl Into<MsgRepositoryCategoryPtr> for *const MsgRepositoryCategory {
+    fn into(self) -> MsgRepositoryCategoryPtr {
+        MsgRepositoryCategoryPtr { address: self as _ }
+    }
+}
+
+impl Into<MsgRepositoryCategoryPtr> for *mut MsgRepositoryCategory {
+    fn into(self) -> MsgRepositoryCategoryPtr {
+        MsgRepositoryCategoryPtr { address: self }
+    }
+}
+
 #[repr(C)]
 pub struct MsgRepositoryGroup {
     pub index: i32,

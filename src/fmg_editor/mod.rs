@@ -1,10 +1,11 @@
 #![allow(unused)]
-use crate::fmg_editor::structs::{
-    FmgId, MsgRepositoryCategory, MsgRepositoryGroup, MsgRepositoryImp,
-};
+
+use std::borrow::Borrow;
+use crate::fmg_editor::structs::{FmgId, MsgRepositoryCategory, MsgRepositoryCategoryPtr, MsgRepositoryGroup, MsgRepositoryImp, MsgRepositoryImpPtr};
 use crate::util;
 use std::mem;
 use std::mem::size_of;
+use std::ops::{Deref, DerefMut};
 use std::ptr::addr_of;
 use widestring::{U16CStr};
 use windows::Win32::System::Memory::{
@@ -14,10 +15,38 @@ use windows::Win32::System::Memory::{
 pub mod structs;
 
 pub struct FmgEditor {
-    msg_repository_imp: &'static MsgRepositoryImp,
-    fmg_id: FmgId,
-    category: &'static mut MsgRepositoryCategory,
+    msg_repository_imp: MsgRepositoryImpPtr,
+    fmg: Fmg,
     changed_entries: Vec<FmgEntry>,
+}
+
+impl<T> AsRef<T> for FmgEditor
+    where
+        T: ?Sized,
+        <FmgEditor as Deref>::Target: AsRef<T>,
+{
+    fn as_ref(&self) -> &T {
+        self.deref().as_ref()
+    }
+}
+
+impl Deref for FmgEditor {
+    type Target = Fmg;
+
+    fn deref(&self) -> &Self::Target {
+        &self.fmg
+    }
+}
+
+impl DerefMut for FmgEditor {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.fmg
+    }
+}
+#[derive(Copy, Clone)]
+pub struct Fmg {
+    fmg_id: FmgId,
+    category: MsgRepositoryCategoryPtr,
 }
 
 struct FmgEntry {
@@ -25,29 +54,7 @@ struct FmgEntry {
     string: Vec<u16>,
 }
 
-impl FmgEditor {
-    pub unsafe fn new(fmg_id: FmgId) -> Self {
-        FmgEditor {
-            msg_repository_imp: mem::transmute(0usize),
-            fmg_id,
-            category: mem::transmute(0usize),
-            changed_entries: vec![],
-        }
-    }
-    pub unsafe fn from_addr(fmg_id: FmgId, msg_repository_imp_address: usize) -> Self {
-        let mut editor = FmgEditor::new(fmg_id);
-        editor.init(msg_repository_imp_address);
-        editor
-    }
-    pub unsafe fn from_addr_ref(fmg_id: FmgId, msg_repository_imp_address: &usize) -> Self {
-        let mut editor = FmgEditor::new(fmg_id);
-        editor.init(*msg_repository_imp_address);
-        editor
-    }
-    pub unsafe fn init(&mut self, msg_repository_imp_address: usize) {
-        self.msg_repository_imp = mem::transmute(msg_repository_imp_address);
-        self.category = self.msg_repository_imp.get_category_mut(0, self.fmg_id);
-    }
+impl Fmg {
     #[inline(always)]
     pub unsafe fn get_group_slice(&self) -> &'static [MsgRepositoryGroup] {
         self.get_group_slice_mut()
@@ -65,7 +72,7 @@ impl FmgEditor {
     }
     pub unsafe fn get_offset_slice_mut(&self) -> &'static mut [usize] {
         std::slice::from_raw_parts_mut(
-            self.category.string_offset,
+            self.category.string_offsets,
             self.category.string_count as usize,
         )
     }
@@ -75,22 +82,24 @@ impl FmgEditor {
     }
     pub unsafe fn get_entry_mut(&self, entry: i32) -> &'static mut U16CStr {
         let groups = self.get_group_slice();
-
         for group in groups {
             if entry <= group.last_id && entry >= group.first_id {
-                let i = entry - group.first_id;
-                let offset = self.get_offset_slice()[group.index as usize + i as usize];
-                return U16CStr::from_ptr_str_mut(
-                    (addr_of!(*self.category) as usize + offset) as *mut u16,
-                );
+                return self.get_entry_from_group(entry, group);
             }
         }
 
         panic!("Attempted to find entry {}", entry)
     }
+    pub unsafe fn get_entry_from_group(&self, entry: i32, group: &MsgRepositoryGroup) -> &'static mut U16CStr {
+        let i = entry - group.first_id;
+        let offset_slice = self.get_offset_slice();
+        let offset = offset_slice[group.index as usize + i as usize];
+        return U16CStr::from_ptr_str_mut(
+            (addr_of!(*self.category) as usize + offset) as *mut u16,
+        );
+    }
     pub(crate) unsafe fn get_offset(&mut self, entry: i32) -> usize {
         let groups = self.get_group_slice();
-
         for group in groups {
             if entry <= group.last_id && entry >= group.first_id {
                 let i = entry - group.first_id;
@@ -112,6 +121,33 @@ impl FmgEditor {
         }
 
         false
+    }
+}
+
+impl FmgEditor {
+    pub unsafe fn new(fmg_id: FmgId) -> Self {
+        FmgEditor {
+            msg_repository_imp: mem::transmute(0usize),
+            fmg: Fmg {
+                fmg_id,
+                category: Default::default(),
+            },
+            changed_entries: vec![],
+        }
+    }
+    pub unsafe fn from_addr(fmg_id: FmgId, msg_repository_imp_address: usize) -> Self {
+        let mut editor = FmgEditor::new(fmg_id);
+        editor.init(msg_repository_imp_address);
+        editor
+    }
+    pub unsafe fn from_addr_ref(fmg_id: FmgId, msg_repository_imp_address: &usize) -> Self {
+        let mut editor = FmgEditor::new(fmg_id);
+        editor.init(*msg_repository_imp_address);
+        editor
+    }
+    pub unsafe fn init(&mut self, msg_repository_imp_address: usize) {
+        self.msg_repository_imp = mem::transmute(msg_repository_imp_address);
+        self.category = self.msg_repository_imp.get_category_mut(0, self.fmg_id);
     }
     pub fn set_entry(&mut self, id: i32, mut string: Vec<u16>) {
         if string.last().unwrap() != &0 {
@@ -178,5 +214,60 @@ impl FmgEditor {
 
         self.category.file_size += sum as u32;
         self.changed_entries.clear();
+    }
+}
+
+impl IntoIterator for &FmgEditor {
+    type Item = (i32, &'static mut U16CStr);
+    type IntoIter = FmgIterator;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.fmg.into_iter()
+    }
+}
+
+impl IntoIterator for Fmg {
+    type Item = (i32, &'static mut U16CStr);
+    type IntoIter = FmgIterator;
+
+    fn into_iter(self) -> Self::IntoIter {
+        unsafe {
+            let group_slice = self.get_group_slice();
+            FmgIterator {
+                fmg: self,
+                group_slice,
+                index: 0,
+            }
+        }
+    }
+}
+
+
+pub struct FmgIterator {
+    fmg: Fmg,
+    group_slice: &'static [MsgRepositoryGroup],
+    index: usize,
+}
+
+impl Iterator for FmgIterator {
+    type Item = (i32, &'static mut U16CStr);
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let mut group_slice = &self.group_slice[0];
+        let mut entry = self.index as i32 + group_slice.first_id;
+        if entry > group_slice.last_id {
+            if self.group_slice.len() == 1 {
+                return None;
+            }
+            self.group_slice = &self.group_slice[1..];
+            self.index = 0;
+            group_slice = &self.group_slice[0];
+            entry = self.group_slice[0].first_id
+        }
+        self.index += 1;
+
+        unsafe {
+            Some((entry, self.fmg.get_entry_from_group(entry, group_slice)))
+        }
     }
 }

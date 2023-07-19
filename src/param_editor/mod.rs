@@ -1,5 +1,4 @@
 #[allow(unused)]
-
 pub mod structs;
 
 use crate::param::traits::*;
@@ -73,9 +72,9 @@ impl<P: Param> ParamEditor<P> {
         self.id_repository_info = mem::transmute(addr_of!(*self.param_header) as usize - 0x10);
     }
     #[inline(always)]
-    pub unsafe fn get_param_table(&self) -> &'static [ParamTable] {
+    pub unsafe fn get_param_table(&self) -> &'static [TableEntry] {
         std::slice::from_raw_parts(
-            &self.param_header.table,
+            &self.param_header.param_table,
             self.param_header.row_count as usize,
         )
     }
@@ -100,7 +99,7 @@ impl<P: Param> ParamEditor<P> {
             self.id_repository_info.entry_count as usize,
         )
     }
-    pub unsafe fn get_param_entry(&self, entry_id: i32) -> Option<&'static P> {
+    pub unsafe fn get_param_row(&self, entry_id: i32) -> Option<&'static P> {
         let param_table = self.get_param_table();
         for entry in param_table {
             if entry.param_id == entry_id {
@@ -111,7 +110,7 @@ impl<P: Param> ParamEditor<P> {
         }
         None
     }
-    pub unsafe fn get_param_entry_mut(&self, entry_id: i32) -> Option<&'static mut P> {
+    pub unsafe fn get_param_row_mut(&self, entry_id: i32) -> Option<&'static mut P> {
         let param_table = self.get_param_table();
         for entry in param_table {
             if entry.param_id == entry_id {
@@ -122,11 +121,11 @@ impl<P: Param> ParamEditor<P> {
         }
         None
     }
-    pub unsafe fn get_param_from_table(&self, table: &ParamTable) ->&'static P {
-        self.get_param_from_table_mut(table)
+    pub unsafe fn get_row_from_table(&self, table: &TableEntry) -> &'static P {
+        self.get_row_from_table_mut(table)
     }
-    pub unsafe fn get_param_from_table_mut(&self, table: &ParamTable) ->&'static mut P {
-            mem::transmute(addr_of!(*self.param_header) as usize + table.param_offset as usize)
+    pub unsafe fn get_row_from_table_mut(&self, table: &TableEntry) -> &'static mut P {
+        mem::transmute(addr_of!(*self.param_header) as usize + table.param_offset as usize)
     }
     unsafe fn find_param_res_cap(&self) -> Option<&'static ParamResCap> {
         let solo_param_entries = &self.solo_param_repository.repository_entries;
@@ -140,4 +139,61 @@ impl<P: Param> ParamEditor<P> {
         }
         None
     }
+}
+
+impl<P: Param> Clone for ParamEditor<P> {
+    fn clone(&self) -> Self {
+        ParamEditor {
+            solo_param_repository: self.solo_param_repository,
+            param_res_cap: self.param_res_cap,
+            param_header: self.param_header,
+            id_repository_info: self.id_repository_info,
+            phantom_data: Default::default(),
+        }
+    }
+}
+
+impl<P: Param> Copy for ParamEditor<P> {}
+
+impl<P: Param + 'static> IntoIterator for ParamEditor<P> {
+    type Item = (i32, &'static mut P);
+    type IntoIter = ParamIterator<P>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        unsafe {
+            ParamIterator {
+                param: self,
+                table: self.get_param_table(),
+                index: 0,
+            }
+        }
+    }
+}
+
+
+pub struct ParamIterator<P: Param> {
+    param: ParamEditor<P>,
+    table: &'static [TableEntry],
+    index: usize,
+}
+
+impl<P: Param + 'static> Iterator for ParamIterator<P> {
+    type Item = (i32, &'static mut P);
+
+    fn next(&mut self) -> Option<Self::Item> {
+        unsafe {
+            if self.index >= self.table.len() {
+                return None;
+            }
+            let t = (self.table[self.index].param_id, (self.param.get_row_from_table_mut(&self.table[self.index])));
+            self.index += 1;
+            Some(t)
+        }
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+
 }
