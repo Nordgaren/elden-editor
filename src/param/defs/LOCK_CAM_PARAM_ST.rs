@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -90,3 +91,7 @@ pub struct LOCK_CAM_PARAM_ST {
 	pub pad:[u8;48],
 }
 
+impl Paramdef for LOCK_CAM_PARAM_ST {
+const NAME: &'static str = "LOCK_CAM_PARAM_ST";
+const VERSION: u16 = 1;
+}

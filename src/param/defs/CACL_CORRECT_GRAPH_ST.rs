@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -86,3 +87,7 @@ pub struct CACL_CORRECT_GRAPH_ST {
 	pub pad:[u8;4],
 }
 
+impl Paramdef for CACL_CORRECT_GRAPH_ST {
+const NAME: &'static str = "CACL_CORRECT_GRAPH_ST";
+const VERSION: u16 = 1;
+}

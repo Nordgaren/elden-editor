@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -92,3 +93,7 @@ pub struct ENEMY_STANDARD_INFO_BANK {
 	pub reserve_last2:[u8;48],
 }
 
+impl Paramdef for ENEMY_STANDARD_INFO_BANK {
+const NAME: &'static str = "ENEMY_STANDARD_INFO_BANK";
+const VERSION: u16 = 1;
+}

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -55,6 +56,10 @@ pub struct AI_SOUND_PARAM_ST {
 	pub pad1:[u8;6],
 }
 
+impl Paramdef for AI_SOUND_PARAM_ST {
+const NAME: &'static str = "AI_SOUND_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl AI_SOUND_PARAM_ST {
 	/// Target: ● Hostile - 対象：●敵対
 	/// Bitfield1

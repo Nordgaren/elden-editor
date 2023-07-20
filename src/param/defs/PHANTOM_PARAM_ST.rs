@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -122,3 +123,7 @@ pub struct PHANTOM_PARAM_ST {
 	pub glowScale:f32,
 }
 
+impl Paramdef for PHANTOM_PARAM_ST {
+const NAME: &'static str = "PHANTOM_PARAM_ST";
+const VERSION: u16 = 3;
+}

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -267,3 +268,7 @@ pub struct PLAYER_COMMON_PARAM_ST {
 	pub reserved41:[u8;52],
 }
 
+impl Paramdef for PLAYER_COMMON_PARAM_ST {
+const NAME: &'static str = "PLAYER_COMMON_PARAM_ST";
+const VERSION: u16 = 1;
+}

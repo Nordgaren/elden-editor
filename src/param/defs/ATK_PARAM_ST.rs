@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 4
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -767,6 +768,10 @@ pub struct ATK_PARAM_ST {
 	pub pad7:[u8;12],
 }
 
+impl Paramdef for ATK_PARAM_ST {
+const NAME: &'static str = "ATK_PARAM_ST";
+const VERSION: u16 = 4;
+}
 impl ATK_PARAM_ST {
 	/// If 1, ignore the guard on the guard side and enter the damage level - 1の場合、ガード側のガードを無視して、ダメージレベルを入れる
 	/// Bitfield1

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -57,3 +58,7 @@ pub struct CHARMAKEMENUTOP_PARAM_ST {
 	pub reserved:[u8;4],
 }
 
+impl Paramdef for CHARMAKEMENUTOP_PARAM_ST {
+const NAME: &'static str = "CHARMAKEMENUTOP_PARAM_ST";
+const VERSION: u16 = 3;
+}

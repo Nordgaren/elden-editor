@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/SOUND_CUTSCENE_PARAM_ST.rs");
+use crate::param::defs::SOUND_CUTSCENE_PARAM_ST::SOUND_CUTSCENE_PARAM_ST;
 
 /// Type: SOUND_CUTSCENE_PARAM_ST
 
-pub type SoundCutsceneParam = ParamStruct<SOUND_CUTSCENE_PARAM_ST>;
-impl Param for ParamStruct<SOUND_CUTSCENE_PARAM_ST> {
+pub struct SoundCutsceneParam {
+	_data: SOUND_CUTSCENE_PARAM_ST
+}
+impl Param for SoundCutsceneParam {
+	type Def = SOUND_CUTSCENE_PARAM_ST;
 	const NAME: &'static str = "SoundCutsceneParam";
-	const TYPE_NAME: &'static str = "SOUND_CUTSCENE_PARAM_ST";
-	const VERSION: u16 = 6;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for SoundCutsceneParam {
+	type Target = SOUND_CUTSCENE_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for SoundCutsceneParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

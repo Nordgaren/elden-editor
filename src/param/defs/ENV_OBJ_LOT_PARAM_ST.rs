@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -75,3 +76,7 @@ pub struct ENV_OBJ_LOT_PARAM_ST {
 	pub Reserve_0:[u8;24],
 }
 
+impl Paramdef for ENV_OBJ_LOT_PARAM_ST {
+const NAME: &'static str = "ENV_OBJ_LOT_PARAM_ST";
+const VERSION: u16 = 1;
+}

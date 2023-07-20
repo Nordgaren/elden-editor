@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -34,6 +35,10 @@ pub struct CHR_ACTIVATE_CONDITION_PARAM_ST {
 	pub pad2:[u8;2],
 }
 
+impl Paramdef for CHR_ACTIVATE_CONDITION_PARAM_ST {
+const NAME: &'static str = "CHR_ACTIVATE_CONDITION_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl CHR_ACTIVATE_CONDITION_PARAM_ST {
 	/// Will it appear when the weather is "sunny"? - 天候が「晴れ」のときに出現するか
 	/// Bitfield1

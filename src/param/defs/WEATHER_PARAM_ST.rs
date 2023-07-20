@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -75,3 +76,7 @@ pub struct WEATHER_PARAM_ST {
 	pub DistViewWeatherGparamOverrideWeight:f32,
 }
 
+impl Paramdef for WEATHER_PARAM_ST {
+const NAME: &'static str = "WEATHER_PARAM_ST";
+const VERSION: u16 = 3;
+}

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -151,6 +152,10 @@ pub struct THROW_PARAM_ST {
 	pub pad1:[u8;24],
 }
 
+impl Paramdef for THROW_PARAM_ST {
+const NAME: &'static str = "THROW_PARAM_ST";
+const VERSION: u16 = 2;
+}
 impl THROW_PARAM_ST {
 	/// Does the throwing side turn? - 投げ側が旋回するか？
 	/// Bitfield1

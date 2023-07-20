@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -35,3 +36,7 @@ pub struct PERFORMANCE_CHECK_PARAM {
 	pub userTag:[u16;16],
 }
 
+impl Paramdef for PERFORMANCE_CHECK_PARAM {
+const NAME: &'static str = "PERFORMANCE_CHECK_PARAM";
+const VERSION: u16 = 1;
+}

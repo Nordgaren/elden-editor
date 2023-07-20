@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/GAME_AREA_PARAM_ST.rs");
+use crate::param::defs::GAME_AREA_PARAM_ST::GAME_AREA_PARAM_ST;
 
 /// Type: GAME_AREA_PARAM_ST
 
-pub type GameAreaParam = ParamStruct<GAME_AREA_PARAM_ST>;
-impl Param for ParamStruct<GAME_AREA_PARAM_ST> {
+pub struct GameAreaParam {
+	_data: GAME_AREA_PARAM_ST
+}
+impl Param for GameAreaParam {
+	type Def = GAME_AREA_PARAM_ST;
 	const NAME: &'static str = "GameAreaParam";
-	const TYPE_NAME: &'static str = "GAME_AREA_PARAM_ST";
-	const VERSION: u16 = 3;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for GameAreaParam {
+	type Target = GAME_AREA_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for GameAreaParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

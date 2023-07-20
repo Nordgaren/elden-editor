@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -53,3 +54,7 @@ pub struct BEHAVIOR_PARAM_ST {
 	pub pad1:[u8;2],
 }
 
+impl Paramdef for BEHAVIOR_PARAM_ST {
+const NAME: &'static str = "BEHAVIOR_PARAM_ST";
+const VERSION: u16 = 2;
+}

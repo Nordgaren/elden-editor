@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -19,6 +20,10 @@ pub struct MAP_GD_REGION_DRAW_PARAM {
 	pub overrideIVLocalLightScale:f32,
 }
 
+impl Paramdef for MAP_GD_REGION_DRAW_PARAM {
+const NAME: &'static str = "MAP_GD_REGION_DRAW_PARAM";
+const VERSION: u16 = 2;
+}
 impl MAP_GD_REGION_DRAW_PARAM {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

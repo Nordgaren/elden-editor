@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -30,3 +31,7 @@ pub struct CAMERA_FADE_PARAM_ST {
 	pub dummy:[u8;12],
 }
 
+impl Paramdef for CAMERA_FADE_PARAM_ST {
+const NAME: &'static str = "CAMERA_FADE_PARAM_ST";
+const VERSION: u16 = 1;
+}

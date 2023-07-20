@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -31,3 +32,7 @@ pub struct GAME_INFO_PARAM {
 	pub Pad:[u8;12],
 }
 
+impl Paramdef for GAME_INFO_PARAM {
+const NAME: &'static str = "GAME_INFO_PARAM";
+const VERSION: u16 = 1;
+}

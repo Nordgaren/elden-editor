@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 0
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -15,3 +16,7 @@ pub struct COMMON_SYSTEM_PARAM_ST {
 	pub reserve0:[u8;60],
 }
 
+impl Paramdef for COMMON_SYSTEM_PARAM_ST {
+const NAME: &'static str = "COMMON_SYSTEM_PARAM_ST";
+const VERSION: u16 = 0;
+}

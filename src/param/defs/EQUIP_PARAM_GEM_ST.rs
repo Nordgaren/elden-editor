@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -150,6 +151,10 @@ pub struct EQUIP_PARAM_GEM_ST {
 	pub pad6:[u8;8],
 }
 
+impl Paramdef for EQUIP_PARAM_GEM_ST {
+const NAME: &'static str = "EQUIP_PARAM_GEM_ST";
+const VERSION: u16 = 3;
+}
 impl EQUIP_PARAM_GEM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

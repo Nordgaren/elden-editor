@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 4
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -1154,6 +1155,10 @@ pub struct SP_EFFECT_PARAM_ST {
 	pub unk3:[u8;4],
 }
 
+impl Paramdef for SP_EFFECT_PARAM_ST {
+const NAME: &'static str = "SP_EFFECT_PARAM_ST";
+const VERSION: u16 = 4;
+}
 impl SP_EFFECT_PARAM_ST {
 	/// Only the target for which this judgment is checked is effective, the default is × - この判定にチェックが入っている対象のみ効果を発揮する、デフォルトは×
 	/// Bitfield1

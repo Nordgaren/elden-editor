@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 10
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -525,3 +526,7 @@ pub struct NETWORK_PARAM_ST {
 	pub pad14_1:[u8;8],
 }
 
+impl Paramdef for NETWORK_PARAM_ST {
+const NAME: &'static str = "NETWORK_PARAM_ST";
+const VERSION: u16 = 10;
+}

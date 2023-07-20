@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -62,3 +63,7 @@ pub struct CS_GRAPHICS_CONFIG_PARAM_ST {
 	pub m_dummy:[u8;3],
 }
 
+impl Paramdef for CS_GRAPHICS_CONFIG_PARAM_ST {
+const NAME: &'static str = "CS_GRAPHICS_CONFIG_PARAM_ST";
+const VERSION: u16 = 2;
+}

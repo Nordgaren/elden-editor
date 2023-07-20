@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -54,3 +55,7 @@ pub struct WET_ASPECT_PARAM_ST {
 	pub reserve_4:[u8;11],
 }
 
+impl Paramdef for WET_ASPECT_PARAM_ST {
+const NAME: &'static str = "WET_ASPECT_PARAM_ST";
+const VERSION: u16 = 1;
+}

@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/NPC_THINK_PARAM_ST.rs");
+use crate::param::defs::NPC_THINK_PARAM_ST::NPC_THINK_PARAM_ST;
 
 /// Type: NPC_THINK_PARAM_ST
 
-pub type NpcThinkParam = ParamStruct<NPC_THINK_PARAM_ST>;
-impl Param for ParamStruct<NPC_THINK_PARAM_ST> {
+pub struct NpcThinkParam {
+	_data: NPC_THINK_PARAM_ST
+}
+impl Param for NpcThinkParam {
+	type Def = NPC_THINK_PARAM_ST;
 	const NAME: &'static str = "NpcThinkParam";
-	const TYPE_NAME: &'static str = "NPC_THINK_PARAM_ST";
-	const VERSION: u16 = 2;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for NpcThinkParam {
+	type Target = NPC_THINK_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for NpcThinkParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

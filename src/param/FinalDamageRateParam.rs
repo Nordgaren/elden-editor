@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/FINAL_DAMAGE_RATE_PARAM_ST.rs");
+use crate::param::defs::FINAL_DAMAGE_RATE_PARAM_ST::FINAL_DAMAGE_RATE_PARAM_ST;
 
 /// Type: FINAL_DAMAGE_RATE_PARAM_ST
 
-pub type FinalDamageRateParam = ParamStruct<FINAL_DAMAGE_RATE_PARAM_ST>;
-impl Param for ParamStruct<FINAL_DAMAGE_RATE_PARAM_ST> {
+pub struct FinalDamageRateParam {
+	_data: FINAL_DAMAGE_RATE_PARAM_ST
+}
+impl Param for FinalDamageRateParam {
+	type Def = FINAL_DAMAGE_RATE_PARAM_ST;
 	const NAME: &'static str = "FinalDamageRateParam";
-	const TYPE_NAME: &'static str = "FINAL_DAMAGE_RATE_PARAM_ST";
-	const VERSION: u16 = 0;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for FinalDamageRateParam {
+	type Target = FINAL_DAMAGE_RATE_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for FinalDamageRateParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

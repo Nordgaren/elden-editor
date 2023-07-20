@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -22,3 +23,7 @@ pub struct CHARMAKEMENU_LISTITEM_PARAM_ST {
 	pub reserved:[u8;7],
 }
 
+impl Paramdef for CHARMAKEMENU_LISTITEM_PARAM_ST {
+const NAME: &'static str = "CHARMAKEMENU_LISTITEM_PARAM_ST";
+const VERSION: u16 = 2;
+}

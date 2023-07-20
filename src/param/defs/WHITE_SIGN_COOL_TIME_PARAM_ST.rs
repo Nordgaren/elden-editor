@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -23,3 +24,7 @@ pub struct WHITE_SIGN_COOL_TIME_PARAM_ST {
 	pub limitationTime_GuardianDriedFinger:f32,
 }
 
+impl Paramdef for WHITE_SIGN_COOL_TIME_PARAM_ST {
+const NAME: &'static str = "WHITE_SIGN_COOL_TIME_PARAM_ST";
+const VERSION: u16 = 1;
+}

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -47,3 +48,7 @@ pub struct RESIST_CORRECT_PARAM_ST {
 	pub addRate5:f32,
 }
 
+impl Paramdef for RESIST_CORRECT_PARAM_ST {
+const NAME: &'static str = "RESIST_CORRECT_PARAM_ST";
+const VERSION: u16 = 1;
+}

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -35,6 +36,10 @@ pub struct CHR_MODEL_PARAM_ST {
 	pub unk:u32,
 }
 
+impl Paramdef for CHR_MODEL_PARAM_ST {
+const NAME: &'static str = "CHR_MODEL_PARAM_ST";
+const VERSION: u16 = 2;
+}
 impl CHR_MODEL_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

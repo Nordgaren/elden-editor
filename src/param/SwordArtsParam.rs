@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/SWORD_ARTS_PARAM_ST.rs");
+use crate::param::defs::SWORD_ARTS_PARAM_ST::SWORD_ARTS_PARAM_ST;
 
 /// Type: SWORD_ARTS_PARAM_ST
 
-pub type SwordArtsParam = ParamStruct<SWORD_ARTS_PARAM_ST>;
-impl Param for ParamStruct<SWORD_ARTS_PARAM_ST> {
+pub struct SwordArtsParam {
+	_data: SWORD_ARTS_PARAM_ST
+}
+impl Param for SwordArtsParam {
+	type Def = SWORD_ARTS_PARAM_ST;
 	const NAME: &'static str = "SwordArtsParam";
-	const TYPE_NAME: &'static str = "SWORD_ARTS_PARAM_ST";
-	const VERSION: u16 = 3;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for SwordArtsParam {
+	type Target = SWORD_ARTS_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for SwordArtsParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

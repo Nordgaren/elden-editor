@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -59,6 +60,10 @@ pub struct RANDOM_APPEAR_PARAM_ST {
 	pub Bitfield13:u8,
 }
 
+impl Paramdef for RANDOM_APPEAR_PARAM_ST {
+const NAME: &'static str = "RANDOM_APPEAR_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl RANDOM_APPEAR_PARAM_ST {
 	/// Will it appear if the slot is won? - スロットが当選した場合に出現するか
 	/// Bitfield1

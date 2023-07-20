@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -29,6 +30,10 @@ pub struct FE_TEXT_EFFECT_PARAM_ST {
 	pub pad2:[u8;19],
 }
 
+impl Paramdef for FE_TEXT_EFFECT_PARAM_ST {
+const NAME: &'static str = "FE_TEXT_EFFECT_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl FE_TEXT_EFFECT_PARAM_ST {
 	/// Whether to display at the same time as the map name - マップ名と同時に表示するか
 	/// Bitfield1

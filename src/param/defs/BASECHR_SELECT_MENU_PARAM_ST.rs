@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -34,6 +35,10 @@ pub struct BASECHR_SELECT_MENU_PARAM_ST {
 	pub reserve:[u8;12],
 }
 
+impl Paramdef for BASECHR_SELECT_MENU_PARAM_ST {
+const NAME: &'static str = "BASECHR_SELECT_MENU_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl BASECHR_SELECT_MENU_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

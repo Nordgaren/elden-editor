@@ -1,17 +1,37 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
 #![allow(non_camel_case_types)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/ITEMLOT_PARAM_ST.rs");
+use crate::param::defs::ITEMLOT_PARAM_ST::ITEMLOT_PARAM_ST;
 
 /// Type: ITEMLOT_PARAM_ST
 
-pub type ItemLotParam_map = ParamStruct<ITEMLOT_PARAM_ST>;
-impl Param for ParamStruct<ITEMLOT_PARAM_ST> {
+pub struct ItemLotParam_map {
+	_data: ITEMLOT_PARAM_ST
+}
+
+impl Param for ItemLotParam_map {
+	type Def = ITEMLOT_PARAM_ST;
 	const NAME: &'static str = "ItemLotParam_map";
-	const TYPE_NAME: &'static str = "ITEMLOT_PARAM_ST";
-	const VERSION: u16 = 4;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for ItemLotParam_map {
+	type Target = ITEMLOT_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for ItemLotParam_map {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

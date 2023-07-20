@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -15,3 +16,7 @@ pub struct SE_MATERIAL_CONVERT_PARAM_ST {
 	pub pad:[u8;3],
 }
 
+impl Paramdef for SE_MATERIAL_CONVERT_PARAM_ST {
+const NAME: &'static str = "SE_MATERIAL_CONVERT_PARAM_ST";
+const VERSION: u16 = 1;
+}

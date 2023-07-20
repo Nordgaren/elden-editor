@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -15,3 +16,7 @@ pub struct GPARAM_GRID_REGION_INFO_PARAM_ST {
 	pub Reserve:[u8;28],
 }
 
+impl Paramdef for GPARAM_GRID_REGION_INFO_PARAM_ST {
+const NAME: &'static str = "GPARAM_GRID_REGION_INFO_PARAM_ST";
+const VERSION: u16 = 1;
+}

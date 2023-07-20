@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -950,6 +951,10 @@ pub struct FACE_PARAM_ST {
 	pub faceGeoAsymData25:u8,
 }
 
+impl Paramdef for FACE_PARAM_ST {
+const NAME: &'static str = "FACE_PARAM_ST";
+const VERSION: u16 = 2;
+}
 impl FACE_PARAM_ST {
 	/// Whether to overwrite the eyeball part ID - 眼球パーツIDを上書きするか
 	/// Bitfield1

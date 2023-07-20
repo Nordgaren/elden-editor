@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -25,3 +26,7 @@ pub struct GRASS_LOD_RANGE_PARAM_ST {
 	pub LOD2_play:f32,
 }
 
+impl Paramdef for GRASS_LOD_RANGE_PARAM_ST {
+const NAME: &'static str = "GRASS_LOD_RANGE_PARAM_ST";
+const VERSION: u16 = 1;
+}

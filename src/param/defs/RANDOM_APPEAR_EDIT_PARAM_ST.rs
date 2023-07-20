@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -203,3 +204,7 @@ pub struct RANDOM_APPEAR_EDIT_PARAM_ST {
 	pub rate24:u32,
 }
 
+impl Paramdef for RANDOM_APPEAR_EDIT_PARAM_ST {
+const NAME: &'static str = "RANDOM_APPEAR_EDIT_PARAM_ST";
+const VERSION: u16 = 1;
+}

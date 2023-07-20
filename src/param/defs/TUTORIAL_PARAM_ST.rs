@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -56,6 +57,10 @@ pub struct TUTORIAL_PARAM_ST {
 	pub pad3:[u8;4],
 }
 
+impl Paramdef for TUTORIAL_PARAM_ST {
+const NAME: &'static str = "TUTORIAL_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl TUTORIAL_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

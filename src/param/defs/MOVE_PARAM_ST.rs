@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -163,3 +164,7 @@ pub struct MOVE_PARAM_ST {
 	pub turnWaitNoAnimAngle:u8,
 }
 
+impl Paramdef for MOVE_PARAM_ST {
+const NAME: &'static str = "MOVE_PARAM_ST";
+const VERSION: u16 = 1;
+}

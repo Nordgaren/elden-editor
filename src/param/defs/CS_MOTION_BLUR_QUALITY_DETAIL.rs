@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -35,3 +36,7 @@ pub struct CS_MOTION_BLUR_QUALITY_DETAIL {
 	pub blurMaxLengthScale:f32,
 }
 
+impl Paramdef for CS_MOTION_BLUR_QUALITY_DETAIL {
+const NAME: &'static str = "CS_MOTION_BLUR_QUALITY_DETAIL";
+const VERSION: u16 = 2;
+}

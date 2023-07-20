@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -39,3 +40,7 @@ pub struct COOL_TIME_PARAM_ST {
 	pub observeTime_3:f32,
 }
 
+impl Paramdef for COOL_TIME_PARAM_ST {
+const NAME: &'static str = "COOL_TIME_PARAM_ST";
+const VERSION: u16 = 1;
+}

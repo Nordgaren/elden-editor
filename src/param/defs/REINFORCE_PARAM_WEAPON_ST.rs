@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -162,3 +163,7 @@ pub struct REINFORCE_PARAM_WEAPON_ST {
 	pub baseAtkRate:f32,
 }
 
+impl Paramdef for REINFORCE_PARAM_WEAPON_ST {
+const NAME: &'static str = "REINFORCE_PARAM_WEAPON_ST";
+const VERSION: u16 = 1;
+}

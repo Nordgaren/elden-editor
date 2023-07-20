@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 6
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -742,6 +743,10 @@ pub struct EQUIP_PARAM_PROTECTOR_ST {
 	pub pad404:[u8;14],
 }
 
+impl Paramdef for EQUIP_PARAM_PROTECTOR_ST {
+const NAME: &'static str = "EQUIP_PARAM_PROTECTOR_ST";
+const VERSION: u16 = 6;
+}
 impl EQUIP_PARAM_PROTECTOR_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

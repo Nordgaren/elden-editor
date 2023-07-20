@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -28,3 +29,7 @@ pub struct MENUPROPERTY_SPEC {
 	pub pad:[u8;16],
 }
 
+impl Paramdef for MENUPROPERTY_SPEC {
+const NAME: &'static str = "MENUPROPERTY_SPEC";
+const VERSION: u16 = 1;
+}

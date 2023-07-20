@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -99,6 +100,10 @@ pub struct EQUIP_MTRL_SET_PARAM_ST {
 	pub pad:[u8;3],
 }
 
+impl Paramdef for EQUIP_MTRL_SET_PARAM_ST {
+const NAME: &'static str = "EQUIP_MTRL_SET_PARAM_ST";
+const VERSION: u16 = 2;
+}
 impl EQUIP_MTRL_SET_PARAM_ST {
 	/// Disable the number display (for enhanced shops) - 個数表示を無効化するか(強化ショップ用)
 	/// Bitfield1

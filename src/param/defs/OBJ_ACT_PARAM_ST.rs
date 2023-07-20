@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -97,3 +98,7 @@ pub struct OBJ_ACT_PARAM_ST {
 	pub pad2:[u8;40],
 }
 
+impl Paramdef for OBJ_ACT_PARAM_ST {
+const NAME: &'static str = "OBJ_ACT_PARAM_ST";
+const VERSION: u16 = 2;
+}

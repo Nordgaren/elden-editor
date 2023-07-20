@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 6
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -219,6 +220,10 @@ pub struct CUTSCENE_GPARAM_WEATHER_PARAM_ST {
 	pub reserved1:[u8;12],
 }
 
+impl Paramdef for CUTSCENE_GPARAM_WEATHER_PARAM_ST {
+const NAME: &'static str = "CUTSCENE_GPARAM_WEATHER_PARAM_ST";
+const VERSION: u16 = 6;
+}
 impl CUTSCENE_GPARAM_WEATHER_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

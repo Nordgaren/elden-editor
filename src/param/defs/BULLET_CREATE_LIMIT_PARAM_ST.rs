@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -19,6 +20,10 @@ pub struct BULLET_CREATE_LIMIT_PARAM_ST {
 	pub pad:[u8;30],
 }
 
+impl Paramdef for BULLET_CREATE_LIMIT_PARAM_ST {
+const NAME: &'static str = "BULLET_CREATE_LIMIT_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl BULLET_CREATE_LIMIT_PARAM_ST {
 	/// Is it restricted for each owner? - オーナー毎に制限するか
 	/// Bitfield1

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -261,6 +262,10 @@ pub struct OBJECT_PARAM_ST {
 	pub pad_5:[u8;40],
 }
 
+impl Paramdef for OBJECT_PARAM_ST {
+const NAME: &'static str = "OBJECT_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl OBJECT_PARAM_ST {
 	/// Does the camera hit (0: not hit, 1: hit) - カメラが当たるか(0:当たらない, 1:当たる)
 	/// Bitfield1

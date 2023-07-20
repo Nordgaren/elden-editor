@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -23,3 +24,7 @@ pub struct MENU_VALUE_TABLE_SPEC {
 	pub padding:[u8;3],
 }
 
+impl Paramdef for MENU_VALUE_TABLE_SPEC {
+const NAME: &'static str = "MENU_VALUE_TABLE_SPEC";
+const VERSION: u16 = 1;
+}

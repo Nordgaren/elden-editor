@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/NETWORK_AREA_PARAM_ST.rs");
+use crate::param::defs::NETWORK_AREA_PARAM_ST::NETWORK_AREA_PARAM_ST;
 
 /// Type: NETWORK_AREA_PARAM_ST
 
-pub type NetworkAreaParam = ParamStruct<NETWORK_AREA_PARAM_ST>;
-impl Param for ParamStruct<NETWORK_AREA_PARAM_ST> {
+pub struct NetworkAreaParam {
+	_data: NETWORK_AREA_PARAM_ST
+}
+impl Param for NetworkAreaParam {
+	type Def = NETWORK_AREA_PARAM_ST;
 	const NAME: &'static str = "NetworkAreaParam";
-	const TYPE_NAME: &'static str = "NETWORK_AREA_PARAM_ST";
-	const VERSION: u16 = 4;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for NetworkAreaParam {
+	type Target = NETWORK_AREA_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for NetworkAreaParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

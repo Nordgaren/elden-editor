@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -45,3 +46,7 @@ pub struct MENU_PARAM_COLOR_TABLE_ST {
 	pub v3:f32,
 }
 
+impl Paramdef for MENU_PARAM_COLOR_TABLE_ST {
+const NAME: &'static str = "MENU_PARAM_COLOR_TABLE_ST";
+const VERSION: u16 = 2;
+}

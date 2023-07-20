@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/WORLD_MAP_POINT_PARAM_ST.rs");
+use crate::param::defs::WORLD_MAP_POINT_PARAM_ST::WORLD_MAP_POINT_PARAM_ST;
 
 /// Type: WORLD_MAP_POINT_PARAM_ST
 
-pub type WorldMapPointParam = ParamStruct<WORLD_MAP_POINT_PARAM_ST>;
-impl Param for ParamStruct<WORLD_MAP_POINT_PARAM_ST> {
+pub struct WorldMapPointParam {
+	_data: WORLD_MAP_POINT_PARAM_ST
+}
+impl Param for WorldMapPointParam {
+	type Def = WORLD_MAP_POINT_PARAM_ST;
 	const NAME: &'static str = "WorldMapPointParam";
-	const TYPE_NAME: &'static str = "WORLD_MAP_POINT_PARAM_ST";
-	const VERSION: u16 = 6;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for WorldMapPointParam {
+	type Target = WORLD_MAP_POINT_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for WorldMapPointParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

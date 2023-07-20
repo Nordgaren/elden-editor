@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -37,3 +38,7 @@ pub struct SPEEDTREE_MODEL_PARAM_ST {
 	pub BillboardBackSpecularWeakenParam:f32,
 }
 
+impl Paramdef for SPEEDTREE_MODEL_PARAM_ST {
+const NAME: &'static str = "SPEEDTREE_MODEL_PARAM_ST";
+const VERSION: u16 = 2;
+}

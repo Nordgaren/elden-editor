@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -40,3 +41,7 @@ pub struct ENEMY_COMMON_PARAM_ST {
 	pub reserved18:[u8;184],
 }
 
+impl Paramdef for ENEMY_COMMON_PARAM_ST {
+const NAME: &'static str = "ENEMY_COMMON_PARAM_ST";
+const VERSION: u16 = 1;
+}

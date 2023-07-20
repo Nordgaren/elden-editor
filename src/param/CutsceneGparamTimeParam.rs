@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/CUTSCENE_GPARAM_TIME_PARAM_ST.rs");
+use crate::param::defs::CUTSCENE_GPARAM_TIME_PARAM_ST::CUTSCENE_GPARAM_TIME_PARAM_ST;
 
 /// Type: CUTSCENE_GPARAM_TIME_PARAM_ST
 
-pub type CutsceneGparamTimeParam = ParamStruct<CUTSCENE_GPARAM_TIME_PARAM_ST>;
-impl Param for ParamStruct<CUTSCENE_GPARAM_TIME_PARAM_ST> {
+pub struct CutsceneGparamTimeParam {
+	_data: CUTSCENE_GPARAM_TIME_PARAM_ST
+}
+impl Param for CutsceneGparamTimeParam {
+	type Def = CUTSCENE_GPARAM_TIME_PARAM_ST;
 	const NAME: &'static str = "CutsceneGparamTimeParam";
-	const TYPE_NAME: &'static str = "CUTSCENE_GPARAM_TIME_PARAM_ST";
-	const VERSION: u16 = 3;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for CutsceneGparamTimeParam {
+	type Target = CUTSCENE_GPARAM_TIME_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for CutsceneGparamTimeParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

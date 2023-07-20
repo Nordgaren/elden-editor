@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -35,3 +36,7 @@ pub struct FINAL_DAMAGE_RATE_PARAM_ST {
 	pub sarate:f32,
 }
 
+impl Paramdef for FINAL_DAMAGE_RATE_PARAM_ST {
+const NAME: &'static str = "FINAL_DAMAGE_RATE_PARAM_ST";
+const VERSION: u16 = 1;
+}

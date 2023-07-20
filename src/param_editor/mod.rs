@@ -6,8 +6,10 @@ use std::ffi::{c_char, CStr};
 use std::marker::PhantomData;
 use std::mem;
 use std::mem::size_of;
+use std::ops::DerefMut;
 use std::ptr::addr_of;
 use structs::*;
+use crate::param::traits;
 
 pub struct ParamEditor<P: Param> {
     solo_param_repository: &'static SoloParamRepository,
@@ -49,12 +51,12 @@ impl<P: Param> ParamEditor<P> {
             (addr_of!(*self.param_header) as usize + self.param_header.param_type_offset as usize)
                 as *const c_char,
         );
-        if param_type.to_bytes() != P::param_type_name().as_bytes() {
+        if param_type.to_bytes() != P::Def::param_type_name().as_bytes() {
             panic!(
                 "Param {} def strings name did not match. game: {:?} header: {}",
                 P::name(),
                 param_type,
-                P::param_type_name()
+                P::Def::param_type_name()
             );
         }
 
@@ -79,13 +81,13 @@ impl<P: Param> ParamEditor<P> {
         )
     }
     #[inline(always)]
-    pub unsafe fn get_param_slice(&self) -> &'static [P] {
+    pub unsafe fn get_param_slice(&self) -> &'static [P::Def] {
         self.get_param_slice_mut()
     }
-    pub unsafe fn get_param_slice_mut(&self) -> &'static mut [P] {
+    pub unsafe fn get_param_slice_mut(&self) -> &'static mut [P::Def] {
         let pointer =
             addr_of!(*self.param_header) as usize + self.param_header.data_offset as usize;
-        std::slice::from_raw_parts_mut(pointer as *mut P, self.param_header.row_count as usize)
+        std::slice::from_raw_parts_mut(pointer as *mut P::Def, self.param_header.row_count as usize)
     }
     #[inline(always)]
     pub unsafe fn get_id_repository(&self) -> &'static [IdRepositoryEntry] {
@@ -99,7 +101,7 @@ impl<P: Param> ParamEditor<P> {
             self.id_repository_info.entry_count as usize,
         )
     }
-    pub unsafe fn get_param_row(&self, entry_id: i32) -> Option<&'static P> {
+    pub unsafe fn get_param_row(&self, entry_id: i32) -> Option<&'static P::Def> {
         let param_table = self.get_param_table();
         for entry in param_table {
             if entry.param_id == entry_id {
@@ -110,7 +112,7 @@ impl<P: Param> ParamEditor<P> {
         }
         None
     }
-    pub unsafe fn get_param_row_mut(&self, entry_id: i32) -> Option<&'static mut P> {
+    pub unsafe fn get_param_row_mut(&self, entry_id: i32) -> Option<&'static mut P::Def> {
         let param_table = self.get_param_table();
         for entry in param_table {
             if entry.param_id == entry_id {
@@ -121,10 +123,10 @@ impl<P: Param> ParamEditor<P> {
         }
         None
     }
-    pub unsafe fn get_row_from_table(&self, table: &TableEntry) -> &'static P {
+    pub unsafe fn get_row_from_table(&self, table: &TableEntry) -> &'static P::Def {
         self.get_row_from_table_mut(table)
     }
-    pub unsafe fn get_row_from_table_mut(&self, table: &TableEntry) -> &'static mut P {
+    pub unsafe fn get_row_from_table_mut(&self, table: &TableEntry) -> &'static mut P::Def {
         mem::transmute(addr_of!(*self.param_header) as usize + table.param_offset as usize)
     }
     unsafe fn find_param_res_cap(&self) -> Option<&'static ParamResCap> {
@@ -156,7 +158,7 @@ impl<P: Param> Clone for ParamEditor<P> {
 impl<P: Param> Copy for ParamEditor<P> {}
 
 impl<P: Param + 'static> IntoIterator for ParamEditor<P> {
-    type Item = (i32, &'static mut P);
+    type Item = (i32, &'static mut P::Def);
     type IntoIter = ParamIterator<P>;
 
     fn into_iter(self) -> Self::IntoIter {
@@ -170,7 +172,11 @@ impl<P: Param + 'static> IntoIterator for ParamEditor<P> {
     }
 }
 
+impl<P: Param> ParamEditor<P> {
+    pub fn init_from_file() {
 
+    }
+}
 pub struct ParamIterator<P: Param> {
     param: ParamEditor<P>,
     table: &'static [TableEntry],
@@ -178,14 +184,14 @@ pub struct ParamIterator<P: Param> {
 }
 
 impl<P: Param + 'static> Iterator for ParamIterator<P> {
-    type Item = (i32, &'static mut P);
+    type Item = (i32, &'static mut P::Def);
 
     fn next(&mut self) -> Option<Self::Item> {
         unsafe {
             if self.index >= self.table.len() {
                 return None;
             }
-            let t = (self.table[self.index].param_id, (self.param.get_row_from_table_mut(&self.table[self.index])));
+            let t = (self.table[self.index].param_id, self.param.get_row_from_table_mut(&self.table[self.index]));
             self.index += 1;
             Some(t)
         }
@@ -195,5 +201,9 @@ impl<P: Param + 'static> Iterator for ParamIterator<P> {
 
 #[cfg(test)]
 mod tests {
+    use crate::param_editor;
 
+    #[test]
+    fn lol() {
+    }
 }

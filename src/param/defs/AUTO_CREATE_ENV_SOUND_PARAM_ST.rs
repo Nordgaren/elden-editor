@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 0
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -39,3 +40,7 @@ pub struct AUTO_CREATE_ENV_SOUND_PARAM_ST {
 	pub LimiteRotateMax:f32,
 }
 
+impl Paramdef for AUTO_CREATE_ENV_SOUND_PARAM_ST {
+const NAME: &'static str = "AUTO_CREATE_ENV_SOUND_PARAM_ST";
+const VERSION: u16 = 0;
+}

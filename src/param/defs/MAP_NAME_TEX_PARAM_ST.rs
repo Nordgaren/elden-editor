@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -38,6 +39,10 @@ pub struct MAP_NAME_TEX_PARAM_ST {
 	pub pad2:[u8;4],
 }
 
+impl Paramdef for MAP_NAME_TEX_PARAM_ST {
+const NAME: &'static str = "MAP_NAME_TEX_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl MAP_NAME_TEX_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

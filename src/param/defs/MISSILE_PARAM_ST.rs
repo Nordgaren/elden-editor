@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -76,3 +77,7 @@ pub struct MISSILE_PARAM_ST {
 	pub reserve_last:[u8;56],
 }
 
+impl Paramdef for MISSILE_PARAM_ST {
+const NAME: &'static str = "MISSILE_PARAM_ST";
+const VERSION: u16 = 1;
+}

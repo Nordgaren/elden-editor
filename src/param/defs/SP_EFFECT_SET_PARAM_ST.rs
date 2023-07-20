@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -23,3 +24,7 @@ pub struct SP_EFFECT_SET_PARAM_ST {
 	pub spEffectId4:i32,
 }
 
+impl Paramdef for SP_EFFECT_SET_PARAM_ST {
+const NAME: &'static str = "SP_EFFECT_SET_PARAM_ST";
+const VERSION: u16 = 1;
+}

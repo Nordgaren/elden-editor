@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -51,6 +52,10 @@ pub struct CUTSCENE_GPARAM_TIME_PARAM_ST {
 	pub PostPlayIngameTime:f32,
 }
 
+impl Paramdef for CUTSCENE_GPARAM_TIME_PARAM_ST {
+const NAME: &'static str = "CUTSCENE_GPARAM_TIME_PARAM_ST";
+const VERSION: u16 = 3;
+}
 impl CUTSCENE_GPARAM_TIME_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

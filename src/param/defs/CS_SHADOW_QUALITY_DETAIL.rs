@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -38,3 +39,7 @@ pub struct CS_SHADOW_QUALITY_DETAIL {
 	pub blurCountBias:i32,
 }
 
+impl Paramdef for CS_SHADOW_QUALITY_DETAIL {
+const NAME: &'static str = "CS_SHADOW_QUALITY_DETAIL";
+const VERSION: u16 = 2;
+}

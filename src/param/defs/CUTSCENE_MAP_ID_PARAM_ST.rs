@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -54,6 +55,10 @@ pub struct CUTSCENE_MAP_ID_PARAM_ST {
 	pub HitParts_1:i32,
 }
 
+impl Paramdef for CUTSCENE_MAP_ID_PARAM_ST {
+const NAME: &'static str = "CUTSCENE_MAP_ID_PARAM_ST";
+const VERSION: u16 = 2;
+}
 impl CUTSCENE_MAP_ID_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

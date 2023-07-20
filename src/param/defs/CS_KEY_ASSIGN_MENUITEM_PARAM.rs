@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -47,3 +48,7 @@ pub struct CS_KEY_ASSIGN_MENUITEM_PARAM {
 	pub padding:[u8;6],
 }
 
+impl Paramdef for CS_KEY_ASSIGN_MENUITEM_PARAM {
+const NAME: &'static str = "CS_KEY_ASSIGN_MENUITEM_PARAM";
+const VERSION: u16 = 1;
+}

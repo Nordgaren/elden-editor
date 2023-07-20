@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -831,3 +832,7 @@ pub struct FACE_RANGE_PARAM_ST {
 	pub burn_scar:f32,
 }
 
+impl Paramdef for FACE_RANGE_PARAM_ST {
+const NAME: &'static str = "FACE_RANGE_PARAM_ST";
+const VERSION: u16 = 3;
+}

@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/MENU_OFFSCR_REND_PARAM_ST.rs");
+use crate::param::defs::MENU_OFFSCR_REND_PARAM_ST::MENU_OFFSCR_REND_PARAM_ST;
 
 /// Type: MENU_OFFSCR_REND_PARAM_ST
 
-pub type MenuOffscrRendParam = ParamStruct<MENU_OFFSCR_REND_PARAM_ST>;
-impl Param for ParamStruct<MENU_OFFSCR_REND_PARAM_ST> {
+pub struct MenuOffscrRendParam {
+	_data: MENU_OFFSCR_REND_PARAM_ST
+}
+impl Param for MenuOffscrRendParam {
+	type Def = MENU_OFFSCR_REND_PARAM_ST;
 	const NAME: &'static str = "MenuOffscrRendParam";
-	const TYPE_NAME: &'static str = "MENU_OFFSCR_REND_PARAM_ST";
-	const VERSION: u16 = 1;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for MenuOffscrRendParam {
+	type Target = MENU_OFFSCR_REND_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for MenuOffscrRendParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -23,3 +24,7 @@ pub struct EQUIP_PARAM_CUSTOM_WEAPON_ST {
 	pub pad:[u8;7],
 }
 
+impl Paramdef for EQUIP_PARAM_CUSTOM_WEAPON_ST {
+const NAME: &'static str = "EQUIP_PARAM_CUSTOM_WEAPON_ST";
+const VERSION: u16 = 1;
+}

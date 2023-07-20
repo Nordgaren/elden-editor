@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -134,3 +135,7 @@ pub struct CLEAR_COUNT_CORRECT_PARAM_ST {
 	pub pad1:[u8;4],
 }
 
+impl Paramdef for CLEAR_COUNT_CORRECT_PARAM_ST {
+const NAME: &'static str = "CLEAR_COUNT_CORRECT_PARAM_ST";
+const VERSION: u16 = 1;
+}

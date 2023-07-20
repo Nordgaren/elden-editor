@@ -1,5 +1,6 @@
 /* This file was automatically generated. */
 pub mod traits;
+pub mod defs;
 
 #[cfg(feature = "ActionButtonParam")]
 pub mod ActionButtonParam;

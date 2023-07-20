@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 9
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -280,6 +281,10 @@ pub struct PLAY_REGION_PARAM_ST {
 	pub pad5:[u8;32],
 }
 
+impl Paramdef for PLAY_REGION_PARAM_ST {
+const NAME: &'static str = "PLAY_REGION_PARAM_ST";
+const VERSION: u16 = 9;
+}
 impl PLAY_REGION_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

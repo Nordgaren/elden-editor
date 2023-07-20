@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -11,3 +12,7 @@ pub struct SE_ACTIVATION_RANGE_PARAM_ST {
 	pub activateRange:f32,
 }
 
+impl Paramdef for SE_ACTIVATION_RANGE_PARAM_ST {
+const NAME: &'static str = "SE_ACTIVATION_RANGE_PARAM_ST";
+const VERSION: u16 = 1;
+}

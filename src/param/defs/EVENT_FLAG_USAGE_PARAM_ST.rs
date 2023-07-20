@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -27,3 +28,7 @@ pub struct EVENT_FLAG_USAGE_PARAM_ST {
 	pub padding2:[u8;24],
 }
 
+impl Paramdef for EVENT_FLAG_USAGE_PARAM_ST {
+const NAME: &'static str = "EVENT_FLAG_USAGE_PARAM_ST";
+const VERSION: u16 = 1;
+}

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -83,3 +84,7 @@ pub struct REINFORCE_PARAM_PROTECTOR_ST {
 	pub resistMadnessRate:f32,
 }
 
+impl Paramdef for REINFORCE_PARAM_PROTECTOR_ST {
+const NAME: &'static str = "REINFORCE_PARAM_PROTECTOR_ST";
+const VERSION: u16 = 1;
+}

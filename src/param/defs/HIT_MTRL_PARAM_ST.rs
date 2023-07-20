@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -115,6 +116,10 @@ pub struct HIT_MTRL_PARAM_ST {
 	pub spEffectId_forWet04:i32,
 }
 
+impl Paramdef for HIT_MTRL_PARAM_ST {
+const NAME: &'static str = "HIT_MTRL_PARAM_ST";
+const VERSION: u16 = 3;
+}
 impl HIT_MTRL_PARAM_ST {
 	/// Height to generate foot effect - フットエフェクトを発生させる高さ
 	/// Bitfield1

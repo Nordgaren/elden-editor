@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -11,3 +12,7 @@ pub struct SFX_BLOCK_RES_SHARE_PARAM {
 	pub shareBlockRsMapUidVal:u32,
 }
 
+impl Paramdef for SFX_BLOCK_RES_SHARE_PARAM {
+const NAME: &'static str = "SFX_BLOCK_RES_SHARE_PARAM";
+const VERSION: u16 = 1;
+}

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 6
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -107,6 +108,10 @@ pub struct MAP_DEFAULT_INFO_PARAM_ST {
 	pub Reserve:[u8;7],
 }
 
+impl Paramdef for MAP_DEFAULT_INFO_PARAM_ST {
+const NAME: &'static str = "MAP_DEFAULT_INFO_PARAM_ST";
+const VERSION: u16 = 6;
+}
 impl MAP_DEFAULT_INFO_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

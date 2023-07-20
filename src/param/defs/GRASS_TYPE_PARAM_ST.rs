@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -122,3 +123,7 @@ pub struct GRASS_TYPE_PARAM_ST {
 	pub model1Name:[u16;16],
 }
 
+impl Paramdef for GRASS_TYPE_PARAM_ST {
+const NAME: &'static str = "GRASS_TYPE_PARAM_ST";
+const VERSION: u16 = 1;
+}

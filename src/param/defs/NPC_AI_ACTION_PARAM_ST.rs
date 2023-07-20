@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -51,3 +52,7 @@ pub struct NPC_AI_ACTION_PARAM_ST {
 	pub pad1:[u8;3],
 }
 
+impl Paramdef for NPC_AI_ACTION_PARAM_ST {
+const NAME: &'static str = "NPC_AI_ACTION_PARAM_ST";
+const VERSION: u16 = 1;
+}

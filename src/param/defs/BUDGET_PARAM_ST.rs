@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -118,3 +119,7 @@ pub struct BUDGET_PARAM_ST {
 	pub reserve_1:[u8;24],
 }
 
+impl Paramdef for BUDGET_PARAM_ST {
+const NAME: &'static str = "BUDGET_PARAM_ST";
+const VERSION: u16 = 1;
+}

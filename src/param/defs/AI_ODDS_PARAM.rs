@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -411,3 +412,7 @@ pub struct AI_ODDS_PARAM {
 	pub pad0:[u8;12],
 }
 
+impl Paramdef for AI_ODDS_PARAM {
+const NAME: &'static str = "AI_ODDS_PARAM";
+const VERSION: u16 = 1;
+}

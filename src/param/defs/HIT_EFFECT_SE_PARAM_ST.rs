@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -551,3 +552,7 @@ pub struct HIT_EFFECT_SE_PARAM_ST {
 	pub reserve:[u8;100],
 }
 
+impl Paramdef for HIT_EFFECT_SE_PARAM_ST {
+const NAME: &'static str = "HIT_EFFECT_SE_PARAM_ST";
+const VERSION: u16 = 1;
+}

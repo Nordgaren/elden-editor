@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -74,3 +75,7 @@ pub struct MULTI_SOUL_BONUS_RATE_PARAM_ST {
 	pub pad1:[u8;64],
 }
 
+impl Paramdef for MULTI_SOUL_BONUS_RATE_PARAM_ST {
+const NAME: &'static str = "MULTI_SOUL_BONUS_RATE_PARAM_ST";
+const VERSION: u16 = 3;
+}

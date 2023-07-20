@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 5
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -46,6 +47,10 @@ pub struct SOUND_CUTSCENE_PARAM_ST {
 	pub reserved:[u8;12],
 }
 
+impl Paramdef for SOUND_CUTSCENE_PARAM_ST {
+const NAME: &'static str = "SOUND_CUTSCENE_PARAM_ST";
+const VERSION: u16 = 5;
+}
 impl SOUND_CUTSCENE_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

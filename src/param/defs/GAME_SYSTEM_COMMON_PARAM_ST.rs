@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -1143,3 +1144,7 @@ pub struct GAME_SYSTEM_COMMON_PARAM_ST {
 	pub reserved_124:[u8;128],
 }
 
+impl Paramdef for GAME_SYSTEM_COMMON_PARAM_ST {
+const NAME: &'static str = "GAME_SYSTEM_COMMON_PARAM_ST";
+const VERSION: u16 = 3;
+}

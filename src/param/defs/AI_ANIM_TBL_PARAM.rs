@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -431,6 +432,10 @@ pub struct AI_ANIM_TBL_PARAM {
 	pub pad0:[u8;13],
 }
 
+impl Paramdef for AI_ANIM_TBL_PARAM {
+const NAME: &'static str = "AI_ANIM_TBL_PARAM";
+const VERSION: u16 = 1;
+}
 impl AI_ANIM_TBL_PARAM {
 	/// Attack success distance type of attack 1 - 攻撃1の攻撃成功距離タイプ
 	/// Bitfield1

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -197,6 +198,10 @@ pub struct ATTACK_ELEMENT_CORRECT_PARAM_ST {
 	pub pad2:[u8;24],
 }
 
+impl Paramdef for ATTACK_ELEMENT_CORRECT_PARAM_ST {
+const NAME: &'static str = "ATTACK_ELEMENT_CORRECT_PARAM_ST";
+const VERSION: u16 = 2;
+}
 impl ATTACK_ELEMENT_CORRECT_PARAM_ST {
 	/// 
 	/// Bitfield1

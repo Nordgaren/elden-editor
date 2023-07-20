@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/CACL_CORRECT_GRAPH_ST.rs");
+use crate::param::defs::CACL_CORRECT_GRAPH_ST::CACL_CORRECT_GRAPH_ST;
 
 /// Type: CACL_CORRECT_GRAPH_ST
 
-pub type CalcCorrectGraph = ParamStruct<CACL_CORRECT_GRAPH_ST>;
-impl Param for ParamStruct<CACL_CORRECT_GRAPH_ST> {
+pub struct CalcCorrectGraph {
+	_data: CACL_CORRECT_GRAPH_ST
+}
+impl Param for CalcCorrectGraph {
+	type Def = CACL_CORRECT_GRAPH_ST;
 	const NAME: &'static str = "CalcCorrectGraph";
-	const TYPE_NAME: &'static str = "CACL_CORRECT_GRAPH_ST";
-	const VERSION: u16 = 1;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for CalcCorrectGraph {
+	type Target = CACL_CORRECT_GRAPH_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for CalcCorrectGraph {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

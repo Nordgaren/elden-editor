@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -15,6 +16,10 @@ pub struct DIRECTION_CAMERA_PARAM_ST {
 	pub pad1:[u8;15],
 }
 
+impl Paramdef for DIRECTION_CAMERA_PARAM_ST {
+const NAME: &'static str = "DIRECTION_CAMERA_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl DIRECTION_CAMERA_PARAM_ST {
 	/// Is it affected by the production camera ON / OFF option? - 演出カメラON/OFFオプションの影響を受けるか？
 	/// Bitfield1

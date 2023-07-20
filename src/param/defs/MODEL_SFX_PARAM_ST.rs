@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 0
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -103,3 +104,7 @@ pub struct MODEL_SFX_PARAM_ST {
 	pub reserve_7:[u8;8],
 }
 
+impl Paramdef for MODEL_SFX_PARAM_ST {
+const NAME: &'static str = "MODEL_SFX_PARAM_ST";
+const VERSION: u16 = 0;
+}

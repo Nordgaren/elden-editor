@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -127,6 +128,10 @@ pub struct GAME_AREA_PARAM_ST {
 	pub reserve:[u8;9],
 }
 
+impl Paramdef for GAME_AREA_PARAM_ST {
+const NAME: &'static str = "GAME_AREA_PARAM_ST";
+const VERSION: u16 = 3;
+}
 impl GAME_AREA_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

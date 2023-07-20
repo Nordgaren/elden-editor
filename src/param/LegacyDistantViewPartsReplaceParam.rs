@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM.rs");
+use crate::param::defs::LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM::LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM;
 
 /// Type: LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM
 
-pub type LegacyDistantViewPartsReplaceParam = ParamStruct<LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM>;
-impl Param for ParamStruct<LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM> {
+pub struct LegacyDistantViewPartsReplaceParam {
+	_data: LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM
+}
+impl Param for LegacyDistantViewPartsReplaceParam {
+	type Def = LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM;
 	const NAME: &'static str = "LegacyDistantViewPartsReplaceParam";
-	const TYPE_NAME: &'static str = "LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM";
-	const VERSION: u16 = 4;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for LegacyDistantViewPartsReplaceParam {
+	type Target = LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for LegacyDistantViewPartsReplaceParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

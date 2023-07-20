@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -23,6 +24,10 @@ pub struct GPARAM_REF_SETTINGS_PARAM_ST {
 	pub Reserve:[u8;24],
 }
 
+impl Paramdef for GPARAM_REF_SETTINGS_PARAM_ST {
+const NAME: &'static str = "GPARAM_REF_SETTINGS_PARAM_ST";
+const VERSION: u16 = 2;
+}
 impl GPARAM_REF_SETTINGS_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

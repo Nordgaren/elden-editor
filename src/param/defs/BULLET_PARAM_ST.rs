@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 4
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -380,6 +381,10 @@ pub struct BULLET_PARAM_ST {
 	pub pad4:[u8;8],
 }
 
+impl Paramdef for BULLET_PARAM_ST {
+const NAME: &'static str = "BULLET_PARAM_ST";
+const VERSION: u16 = 4;
+}
 impl BULLET_PARAM_ST {
 	/// If it is ON, it will penetrate without landing when it hits the character. - ONであればキャラに当たったときに着弾せず貫通する
 	/// Bitfield1

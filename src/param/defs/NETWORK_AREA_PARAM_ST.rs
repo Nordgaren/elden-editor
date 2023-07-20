@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 4
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -38,6 +39,10 @@ pub struct NETWORK_AREA_PARAM_ST {
 	pub dummy:[u8;3],
 }
 
+impl Paramdef for NETWORK_AREA_PARAM_ST {
+const NAME: &'static str = "NETWORK_AREA_PARAM_ST";
+const VERSION: u16 = 4;
+}
 impl NETWORK_AREA_PARAM_ST {
 	/// Effective bloodstain / death illusion - 血痕・死亡幻影有効
 	/// Bitfield1

@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -135,3 +136,7 @@ pub struct OBJECT_MATERIAL_SFX_PARAM_ST {
 	pub sfxId_31:u32,
 }
 
+impl Paramdef for OBJECT_MATERIAL_SFX_PARAM_ST {
+const NAME: &'static str = "OBJECT_MATERIAL_SFX_PARAM_ST";
+const VERSION: u16 = 1;
+}

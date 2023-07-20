@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/EQUIP_PARAM_GEM_ST.rs");
+use crate::param::defs::EQUIP_PARAM_GEM_ST::EQUIP_PARAM_GEM_ST;
 
 /// Type: EQUIP_PARAM_GEM_ST
 
-pub type EquipParamGem = ParamStruct<EQUIP_PARAM_GEM_ST>;
-impl Param for ParamStruct<EQUIP_PARAM_GEM_ST> {
+pub struct EquipParamGem {
+	_data: EQUIP_PARAM_GEM_ST
+}
+impl Param for EquipParamGem {
+	type Def = EQUIP_PARAM_GEM_ST;
 	const NAME: &'static str = "EquipParamGem";
-	const TYPE_NAME: &'static str = "EQUIP_PARAM_GEM_ST";
-	const VERSION: u16 = 3;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for EquipParamGem {
+	type Target = EQUIP_PARAM_GEM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for EquipParamGem {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

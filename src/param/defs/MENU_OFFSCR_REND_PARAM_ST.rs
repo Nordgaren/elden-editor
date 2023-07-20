@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -71,3 +72,7 @@ pub struct MENU_OFFSCR_REND_PARAM_ST {
 	pub pad:[u8;4],
 }
 
+impl Paramdef for MENU_OFFSCR_REND_PARAM_ST {
+const NAME: &'static str = "MENU_OFFSCR_REND_PARAM_ST";
+const VERSION: u16 = 1;
+}

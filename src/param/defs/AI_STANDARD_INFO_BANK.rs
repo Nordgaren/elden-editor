@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -161,3 +162,7 @@ pub struct AI_STANDARD_INFO_BANK {
 	pub reserve_last:[u8;32],
 }
 
+impl Paramdef for AI_STANDARD_INFO_BANK {
+const NAME: &'static str = "AI_STANDARD_INFO_BANK";
+const VERSION: u16 = 1;
+}

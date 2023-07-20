@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -23,3 +24,7 @@ pub struct GRAPHICS_COMMON_PARAM_ST {
 	pub reserved04:[u8;240],
 }
 
+impl Paramdef for GRAPHICS_COMMON_PARAM_ST {
+const NAME: &'static str = "GRAPHICS_COMMON_PARAM_ST";
+const VERSION: u16 = 1;
+}

@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/ASSET_MODEL_SFX_PARAM_ST.rs");
+use crate::param::defs::ASSET_MODEL_SFX_PARAM_ST::ASSET_MODEL_SFX_PARAM_ST;
 
 /// Type: ASSET_MODEL_SFX_PARAM_ST
 
-pub type AssetModelSfxParam = ParamStruct<ASSET_MODEL_SFX_PARAM_ST>;
-impl Param for ParamStruct<ASSET_MODEL_SFX_PARAM_ST> {
+pub struct AssetModelSfxParam {
+	_data: ASSET_MODEL_SFX_PARAM_ST
+}
+impl Param for AssetModelSfxParam {
+	type Def = ASSET_MODEL_SFX_PARAM_ST;
 	const NAME: &'static str = "AssetModelSfxParam";
-	const TYPE_NAME: &'static str = "ASSET_MODEL_SFX_PARAM_ST";
-	const VERSION: u16 = 0;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for AssetModelSfxParam {
+	type Target = ASSET_MODEL_SFX_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for AssetModelSfxParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

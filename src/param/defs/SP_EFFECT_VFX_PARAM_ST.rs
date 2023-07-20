@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -211,6 +212,10 @@ pub struct SP_EFFECT_VFX_PARAM_ST {
 	pub pad:[u8;14],
 }
 
+impl Paramdef for SP_EFFECT_VFX_PARAM_ST {
+const NAME: &'static str = "SP_EFFECT_VFX_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl SP_EFFECT_VFX_PARAM_ST {
 	/// Is there a large effect? - 大型用エフェクトがあるか
 	/// Bitfield1

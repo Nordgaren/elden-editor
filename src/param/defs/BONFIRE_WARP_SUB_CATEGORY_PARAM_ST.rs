@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -30,6 +31,10 @@ pub struct BONFIRE_WARP_SUB_CATEGORY_PARAM_ST {
 	pub pad:[u8;4],
 }
 
+impl Paramdef for BONFIRE_WARP_SUB_CATEGORY_PARAM_ST {
+const NAME: &'static str = "BONFIRE_WARP_SUB_CATEGORY_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl BONFIRE_WARP_SUB_CATEGORY_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

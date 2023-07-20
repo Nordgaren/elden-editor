@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -449,6 +450,10 @@ pub struct CHARACTER_INIT_PARAM {
 	pub reserve:[u8;6],
 }
 
+impl Paramdef for CHARACTER_INIT_PARAM {
+const NAME: &'static str = "CHARACTER_INIT_PARAM";
+const VERSION: u16 = 2;
+}
 impl CHARACTER_INIT_PARAM {
 	/// Pledge type (None: 0) - 誓約タイプ(なし：0)
 	/// Bitfield1

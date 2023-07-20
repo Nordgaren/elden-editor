@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -247,3 +248,7 @@ pub struct MENU_COMMON_PARAM_ST {
 	pub reserved33:[u8;32],
 }
 
+impl Paramdef for MENU_COMMON_PARAM_ST {
+const NAME: &'static str = "MENU_COMMON_PARAM_ST";
+const VERSION: u16 = 1;
+}

@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/GESTURE_PARAM_ST.rs");
+use crate::param::defs::GESTURE_PARAM_ST::GESTURE_PARAM_ST;
 
 /// Type: GESTURE_PARAM_ST
 
-pub type GestureParam = ParamStruct<GESTURE_PARAM_ST>;
-impl Param for ParamStruct<GESTURE_PARAM_ST> {
+pub struct GestureParam {
+	_data: GESTURE_PARAM_ST
+}
+impl Param for GestureParam {
+	type Def = GESTURE_PARAM_ST;
 	const NAME: &'static str = "GestureParam";
-	const TYPE_NAME: &'static str = "GESTURE_PARAM_ST";
-	const VERSION: u16 = 2;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for GestureParam {
+	type Target = GESTURE_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for GestureParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

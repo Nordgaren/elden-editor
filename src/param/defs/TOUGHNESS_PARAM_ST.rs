@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -35,3 +36,7 @@ pub struct TOUGHNESS_PARAM_ST {
 	pub pad1:[u8;16],
 }
 
+impl Paramdef for TOUGHNESS_PARAM_ST {
+const NAME: &'static str = "TOUGHNESS_PARAM_ST";
+const VERSION: u16 = 1;
+}

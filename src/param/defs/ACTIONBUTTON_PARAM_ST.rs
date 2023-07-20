@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -98,6 +99,10 @@ pub struct ACTIONBUTTON_PARAM_ST {
 	pub padding6:[u8;28],
 }
 
+impl Paramdef for ACTIONBUTTON_PARAM_ST {
+const NAME: &'static str = "ACTIONBUTTON_PARAM_ST";
+const VERSION: u16 = 2;
+}
 impl ACTIONBUTTON_PARAM_ST {
 	/// 
 	/// Bitfield1

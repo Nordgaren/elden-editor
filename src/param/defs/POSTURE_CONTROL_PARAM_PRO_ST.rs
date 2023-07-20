@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 0
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -154,3 +155,7 @@ pub struct POSTURE_CONTROL_PARAM_PRO_ST {
 	pub pad:[u8;8],
 }
 
+impl Paramdef for POSTURE_CONTROL_PARAM_PRO_ST {
+const NAME: &'static str = "POSTURE_CONTROL_PARAM_PRO_ST";
+const VERSION: u16 = 0;
+}

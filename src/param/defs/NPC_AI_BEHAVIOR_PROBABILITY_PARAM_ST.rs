@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -730,3 +731,7 @@ pub struct NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST {
 	pub param199:i16,
 }
 
+impl Paramdef for NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST {
+const NAME: &'static str = "NPC_AI_BEHAVIOR_PROBABILITY_PARAM_ST";
+const VERSION: u16 = 2;
+}

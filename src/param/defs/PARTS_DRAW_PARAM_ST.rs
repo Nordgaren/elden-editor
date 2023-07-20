@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 5
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -163,6 +164,10 @@ pub struct PARTS_DRAW_PARAM_ST {
 	pub resereve:[u8;34],
 }
 
+impl Paramdef for PARTS_DRAW_PARAM_ST {
+const NAME: &'static str = "PARTS_DRAW_PARAM_ST";
+const VERSION: u16 = 5;
+}
 impl PARTS_DRAW_PARAM_ST {
 	/// Is crossfade enabled (0: disabled, 1: enabled)? - クロスフェード有効か(0:無効,1:有効)
 	/// Bitfield1

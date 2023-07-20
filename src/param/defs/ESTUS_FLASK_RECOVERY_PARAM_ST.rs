@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -90,3 +91,7 @@ pub struct ESTUS_FLASK_RECOVERY_PARAM_ST {
 	pub pad:[u8;8],
 }
 
+impl Paramdef for ESTUS_FLASK_RECOVERY_PARAM_ST {
+const NAME: &'static str = "ESTUS_FLASK_RECOVERY_PARAM_ST";
+const VERSION: u16 = 2;
+}

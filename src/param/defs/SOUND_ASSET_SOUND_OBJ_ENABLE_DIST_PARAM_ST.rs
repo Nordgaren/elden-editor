@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -11,3 +12,7 @@ pub struct SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST {
 	pub SoundObjEnableDist:f32,
 }
 
+impl Paramdef for SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST {
+const NAME: &'static str = "SOUND_ASSET_SOUND_OBJ_ENABLE_DIST_PARAM_ST";
+const VERSION: u16 = 1;
+}

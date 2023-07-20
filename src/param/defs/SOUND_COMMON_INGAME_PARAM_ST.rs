@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 0
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -15,3 +16,7 @@ pub struct SOUND_COMMON_INGAME_PARAM_ST {
 	pub ParamValueStr:[u8;32],
 }
 
+impl Paramdef for SOUND_COMMON_INGAME_PARAM_ST {
+const NAME: &'static str = "SOUND_COMMON_INGAME_PARAM_ST";
+const VERSION: u16 = 0;
+}

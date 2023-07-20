@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 5
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -167,6 +168,10 @@ pub struct WEATHER_LOT_PARAM_ST {
 	pub reserve:[u8;9],
 }
 
+impl Paramdef for WEATHER_LOT_PARAM_ST {
+const NAME: &'static str = "WEATHER_LOT_PARAM_ST";
+const VERSION: u16 = 5;
+}
 impl WEATHER_LOT_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

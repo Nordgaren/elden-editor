@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -282,6 +283,10 @@ pub struct DEFAULT_KEY_ASSIGN {
 	pub a2dThreshold_7:f32,
 }
 
+impl Paramdef for DEFAULT_KEY_ASSIGN {
+const NAME: &'static str = "DEFAULT_KEY_ASSIGN";
+const VERSION: u16 = 1;
+}
 impl DEFAULT_KEY_ASSIGN {
 	/// Lower suppression pad 0 - 下位抑制パッド0
 	/// Bitfield1

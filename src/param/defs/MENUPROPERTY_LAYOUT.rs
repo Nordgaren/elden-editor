@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 2
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -24,3 +25,7 @@ pub struct MENUPROPERTY_LAYOUT {
 	pub reserved:[u8;4],
 }
 
+impl Paramdef for MENUPROPERTY_LAYOUT {
+const NAME: &'static str = "MENUPROPERTY_LAYOUT";
+const VERSION: u16 = 2;
+}

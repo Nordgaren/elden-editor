@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 1
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -22,6 +23,10 @@ pub struct SIGN_PUDDLE_PARAM_ST {
 	pub pad1:[u8;24],
 }
 
+impl Paramdef for SIGN_PUDDLE_PARAM_ST {
+const NAME: &'static str = "SIGN_PUDDLE_PARAM_ST";
+const VERSION: u16 = 1;
+}
 impl SIGN_PUDDLE_PARAM_ST {
 	/// Parameters marked with ○ are excluded in the NT version package. - ○をつけたパラメータをNT版パッケージでは除外します
 	/// Bitfield1

@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/SOUND_CHR_PHYSICS_SE_PARAM_ST.rs");
+use crate::param::defs::SOUND_CHR_PHYSICS_SE_PARAM_ST::SOUND_CHR_PHYSICS_SE_PARAM_ST;
 
 /// Type: SOUND_CHR_PHYSICS_SE_PARAM_ST
 
-pub type SoundChrPhysicsSeParam = ParamStruct<SOUND_CHR_PHYSICS_SE_PARAM_ST>;
-impl Param for ParamStruct<SOUND_CHR_PHYSICS_SE_PARAM_ST> {
+pub struct SoundChrPhysicsSeParam {
+	_data: SOUND_CHR_PHYSICS_SE_PARAM_ST
+}
+impl Param for SoundChrPhysicsSeParam {
+	type Def = SOUND_CHR_PHYSICS_SE_PARAM_ST;
 	const NAME: &'static str = "SoundChrPhysicsSeParam";
-	const TYPE_NAME: &'static str = "SOUND_CHR_PHYSICS_SE_PARAM_ST";
-	const VERSION: u16 = 4;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for SoundChrPhysicsSeParam {
+	type Target = SOUND_CHR_PHYSICS_SE_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for SoundChrPhysicsSeParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

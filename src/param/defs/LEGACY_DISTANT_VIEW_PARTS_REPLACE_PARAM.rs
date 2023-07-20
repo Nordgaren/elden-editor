@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 4
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -83,3 +84,7 @@ pub struct LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM {
 	pub LimitedMapRegioAssetIdRangeMax:i32,
 }
 
+impl Paramdef for LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM {
+const NAME: &'static str = "LEGACY_DISTANT_VIEW_PARTS_REPLACE_PARAM";
+const VERSION: u16 = 4;
+}

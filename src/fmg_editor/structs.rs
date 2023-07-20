@@ -63,7 +63,19 @@ pub(super) struct MsgRepositoryImp {
 }
 
 pub(super) struct MsgRepositoryImpPtr {
-    address: *mut MsgRepositoryImp,
+    pub address: *mut MsgRepositoryImp,
+}
+
+impl MsgRepositoryImpPtr {
+    pub fn set_addr(&mut self, addr:usize) {
+        self.address = addr as _;
+    }
+}
+
+impl Default for MsgRepositoryImpPtr {
+    fn default() -> Self {
+        MsgRepositoryImpPtr { address: 0 as *mut MsgRepositoryImp }
+    }
 }
 
 impl Deref for MsgRepositoryImpPtr {
@@ -193,6 +205,12 @@ impl Into<MsgRepositoryCategoryPtr> for *const MsgRepositoryCategory {
 impl Into<MsgRepositoryCategoryPtr> for *mut MsgRepositoryCategory {
     fn into(self) -> MsgRepositoryCategoryPtr {
         MsgRepositoryCategoryPtr { address: self }
+    }
+}
+
+impl Into<*mut MsgRepositoryCategory> for MsgRepositoryCategoryPtr {
+    fn into(self) -> *mut MsgRepositoryCategory {
+        self.address
     }
 }
 

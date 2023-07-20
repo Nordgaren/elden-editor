@@ -1,16 +1,35 @@
 /* This file was automatically generated from regulation data. */
 #![allow(non_snake_case)]
+use std::ops::{Deref, DerefMut};
 use crate::param::traits::*;
-
-include!("defs/BUDDY_PARAM_ST.rs");
+use crate::param::defs::BUDDY_PARAM_ST::BUDDY_PARAM_ST;
 
 /// Type: BUDDY_PARAM_ST
 
-pub type BuddyParam = ParamStruct<BUDDY_PARAM_ST>;
-impl Param for ParamStruct<BUDDY_PARAM_ST> {
+pub struct BuddyParam {
+	_data: BUDDY_PARAM_ST
+}
+impl Param for BuddyParam {
+	type Def = BUDDY_PARAM_ST;
 	const NAME: &'static str = "BuddyParam";
-	const TYPE_NAME: &'static str = "BUDDY_PARAM_ST";
-	const VERSION: u16 = 2;
+	fn data(&self) -> &Self::Def {
+	&self._data
+	}
+	fn data_mut(&mut self) -> &mut Self::Def {
+	&mut self._data
+	}
+}
+
+impl Deref for BuddyParam {
+	type Target = BUDDY_PARAM_ST;
+	fn deref(&self) -> &Self::Target {
+		self.data()
+	}
+}
+impl DerefMut for BuddyParam {
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.data_mut()
+	}
 }
 
 #[cfg(test)]

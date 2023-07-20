@@ -1,4 +1,5 @@
 /* This file was automatically generated from XML paramdefs. */
+use crate::param::traits::Paramdef;
 /// Data Version: 3
 /// Is Big Endian: False
 /// Is Unicode: True
@@ -76,3 +77,7 @@ pub struct SHOP_LINEUP_PARAM {
 	pub pad2:[u8;2],
 }
 
+impl Paramdef for SHOP_LINEUP_PARAM {
+const NAME: &'static str = "SHOP_LINEUP_PARAM";
+const VERSION: u16 = 3;
+}
