@@ -45,33 +45,33 @@ impl Fmg {
         )
     }
     #[inline(always)]
-    pub unsafe fn get_entry(&self, entry: i32) -> &'static U16CStr {
-        self.get_entry_mut(entry)
+    pub unsafe fn get_entry(&self, entry_id: i32) -> &'static U16CStr {
+        self.get_entry_mut(entry_id)
     }
-    pub unsafe fn get_entry_mut(&self, entry: i32) -> &'static mut U16CStr {
+    pub unsafe fn get_entry_mut(&self, entry_id: i32) -> &'static mut U16CStr {
         let groups = self.get_group_slice();
         for group in groups {
-            if entry <= group.last_id && entry >= group.first_id {
-                return self.get_entry_from_group_mut(entry, group);
+            if entry_id <= group.last_id && entry_id >= group.first_id {
+                return self.get_entry_from_group_mut(entry_id, group);
             }
         }
 
-        panic!("Attempted to find entry {}", entry)
+        panic!("Attempted to find entry {}", entry_id)
     }
     #[inline(always)]
     pub unsafe fn get_entry_from_group(
         &self,
-        entry: i32,
+        entry_id: i32,
         group: &MsgRepositoryGroup,
     ) -> &'static U16CStr {
-        self.get_entry_from_group_mut(entry, group)
+        self.get_entry_from_group_mut(entry_id, group)
     }
     pub unsafe fn get_entry_from_group_mut(
         &self,
-        entry: i32,
+        entry_id: i32,
         group: &MsgRepositoryGroup,
     ) -> &'static mut U16CStr {
-        let i = entry - group.first_id;
+        let i = entry_id - group.first_id;
         let offset_slice = self.get_offset_slice();
         let offset = offset_slice[group.index as usize + i as usize];
         return U16CStr::from_ptr_str_mut((addr_of!(*self.category) as usize + offset) as *mut u16);

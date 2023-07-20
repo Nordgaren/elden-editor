@@ -22,7 +22,7 @@ use windows::Win32::System::Memory::{
 };
 
 pub mod fmg;
-pub mod iterator;
+pub mod traits;
 pub mod structs;
 
 static mut msg_repository_imp: MsgRepositoryImpPtr = MsgRepositoryImpPtr {
@@ -37,9 +37,8 @@ pub unsafe fn init() {
     match SimpleScanner.scan(get_module_slice(base), &msg_repo_sig) {
         None => panic!("Could not find MsgRepository"),
         Some(offset) => {
-            let msg_repository: &usize =
-                mem::transmute(get_relative_pointer(base + offset as usize, 3, 7));
-            msg_repository_imp.address = *msg_repository as *mut MsgRepositoryImp;
+            let msg_repository = get_relative_pointer(base + offset as usize, 3, 7);
+            msg_repository_imp.address = *msg_repository;
         }
     }
 }
