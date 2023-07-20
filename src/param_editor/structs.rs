@@ -1,5 +1,6 @@
 use crate::dl_string::DLWString;
 use std::mem;
+use std::ops::{Deref, DerefMut};
 use std::ptr::addr_of;
 use std::string::FromUtf16Error;
 
@@ -9,6 +10,32 @@ const PARAM_ENTRIES: usize = 186;
 pub(super) struct SoloParamRepository {
     pub unknown0x0: [u8; 0x80],
     pub repository_entries: [RepositoryEntry; PARAM_ENTRIES],
+}
+
+#[derive(Clone, Copy)]
+pub(super) struct SoloParamRepositoryPtr {
+    pub address: *mut SoloParamRepository,
+}
+impl Default for SoloParamRepositoryPtr {
+    fn default() -> Self {
+        SoloParamRepositoryPtr { address: 0 as *mut SoloParamRepository }
+    }
+}
+impl Deref for SoloParamRepositoryPtr {
+    type Target = SoloParamRepository;
+
+    fn deref(&self) -> &Self::Target {
+        unsafe {
+            &*self.address
+        }
+    }
+}
+impl DerefMut for SoloParamRepositoryPtr {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        unsafe {
+            &mut *self.address
+        }
+    }
 }
 
 #[repr(C)]

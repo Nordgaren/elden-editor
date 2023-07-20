@@ -8,11 +8,41 @@ use std::mem;
 use std::mem::size_of;
 use std::ops::DerefMut;
 use std::ptr::addr_of;
+use fisherman::scanner::signature::Signature;
+use fisherman::scanner::simple_scanner::SimpleScanner;
+use fisherman::util::{get_module_slice, get_relative_pointer};
+use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 use structs::*;
 use crate::param::traits;
+static mut solo_param_repository: SoloParamRepositoryPtr = SoloParamRepositoryPtr{ address: 0 as *mut SoloParamRepository};
+
+#[cfg(feature = "ParamRepositoryScan")]
+pub unsafe fn init() {
+    let base = GetModuleHandleA(None).unwrap().0 as usize;
+    let param_repo_sig = Signature::from_ida_pattern(
+        "48 8B 0D ?? ?? ?? ?? 48 85 C9 0F 84 ?? ?? ?? ?? 45 33 C0 BA 90",
+    )
+        .unwrap();
+    match SimpleScanner.scan(get_module_slice(base), &param_repo_sig) {
+        None => panic!("Could not find SoloParamRepository"),
+        Some(offset) => {
+            let param_repository: &usize =
+                mem::transmute(get_relative_pointer(base + offset as usize, 3, 7));
+            solo_param_repository.address = *param_repository as *mut SoloParamRepository;
+        }
+    }
+}
+
+unsafe fn init_from_file(file: &[u8]) {
+    solo_param_repository.address = 0 as *mut SoloParamRepository;
+}
+
+pub unsafe fn init_from_pointer(address: usize) {
+    solo_param_repository.address = address as *mut SoloParamRepository;
+}
 
 pub struct ParamEditor<P: Param> {
-    solo_param_repository: &'static SoloParamRepository,
+    solo_param_repository: SoloParamRepositoryPtr,
     param_res_cap: &'static ParamResCap,
     param_header: &'static ParamHeader,
     id_repository_info: &'static IdRepositoryInfo,
@@ -22,7 +52,7 @@ pub struct ParamEditor<P: Param> {
 impl<P: Param> ParamEditor<P> {
     pub unsafe fn new() -> ParamEditor<P> {
         ParamEditor {
-            solo_param_repository: mem::transmute(0usize),
+            solo_param_repository: Default::default(),
             param_res_cap: mem::transmute(0usize),
             param_header: mem::transmute(0usize),
             id_repository_info: mem::transmute(0usize),
@@ -40,7 +70,7 @@ impl<P: Param> ParamEditor<P> {
         editor
     }
     pub unsafe fn init(&mut self, solo_param_repository_address: usize) {
-        self.solo_param_repository = mem::transmute(solo_param_repository_address);
+        self.solo_param_repository = SoloParamRepositoryPtr { address: solo_param_repository_address as *mut SoloParamRepository };
         self.param_res_cap = self
             .find_param_res_cap()
             .expect(&format!("Could not find ParamResCap for {}", P::name()));
@@ -172,11 +202,6 @@ impl<P: Param + 'static> IntoIterator for ParamEditor<P> {
     }
 }
 
-impl<P: Param> ParamEditor<P> {
-    pub fn init_from_file() {
-
-    }
-}
 pub struct ParamIterator<P: Param> {
     param: ParamEditor<P>,
     table: &'static [TableEntry],
@@ -202,6 +227,7 @@ impl<P: Param + 'static> Iterator for ParamIterator<P> {
 #[cfg(test)]
 mod tests {
     use crate::param_editor;
+    use crate::param_editor::structs::SoloParamRepository;
 
     #[test]
     fn lol() {

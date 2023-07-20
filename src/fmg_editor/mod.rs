@@ -2,26 +2,50 @@
 
 use std::borrow::Borrow;
 use std::cell::UnsafeCell;
-use crate::fmg_editor::structs::{FmgId, MsgRepositoryCategory, MsgRepositoryCategoryPtr, MsgRepositoryGroup, MsgRepositoryImp, MsgRepositoryImpPtr};
+use crate::fmg_editor::structs::{MsgRepositoryCategory, MsgRepositoryCategoryPtr, MsgRepositoryGroup, MsgRepositoryImp, MsgRepositoryImpPtr};
 use crate::util;
 use std::mem;
 use std::mem::size_of;
 use std::ops::{Deref, DerefMut};
 use std::ptr::addr_of;
+use fisherman::scanner::signature::Signature;
+use fisherman::scanner::simple_scanner::SimpleScanner;
+use fisherman::util::{get_module_slice, get_relative_pointer};
 use widestring::{U16CStr};
+use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 use windows::Win32::System::Memory::{
     VirtualAlloc, MEM_COMMIT, MEM_RESERVE, PAGE_EXECUTE_READWRITE,
 };
-use crate::fmg_editor::fmg::{Fmg, FmgEntry};
+use crate::fmg_editor::fmg::{Fmg, FmgEntry, FmgId};
 
 pub mod structs;
 pub mod iterator;
 pub mod fmg;
 
-// static  msg_repository_imp: MsgRepositoryImpPtr = MsgRepositoryImpPtr { address: 0 as *mut MsgRepositoryImp };
-// pub unsafe fn init() {
-//     msg_repository_imp.address = 0 as *mut MsgRepositoryImp;
-// }
+static mut msg_repository_imp: MsgRepositoryImpPtr = MsgRepositoryImpPtr { address: 0 as *mut MsgRepositoryImp };
+
+#[cfg(feature = "MsgRepositoryScan")]
+pub unsafe fn init() {
+    let base = GetModuleHandleA(None).unwrap().0 as usize;
+    let msg_repo_sig =
+        Signature::from_ida_pattern("48 8B 3D ?? ?? ?? ?? 44 0F B6 30 48 85 FF 75").unwrap();
+    match SimpleScanner.scan(get_module_slice(base), &msg_repo_sig) {
+        None => panic!("Could not find MsgRepository"),
+        Some(offset) => {
+            let msg_repository: &usize =
+                mem::transmute(get_relative_pointer(base + offset as usize, 3, 7));
+            msg_repository_imp.address = *msg_repository as *mut MsgRepositoryImp;
+        }
+    }
+}
+
+unsafe fn init_from_file(file: &[u8]) {
+    msg_repository_imp.address = 0 as *mut MsgRepositoryImp;
+}
+
+pub unsafe fn init_from_pointer(address: usize) {
+    msg_repository_imp.address = address as *mut MsgRepositoryImp;
+}
 
 pub struct FmgEditor {
     msg_repository_imp: MsgRepositoryImpPtr,

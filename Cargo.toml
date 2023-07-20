@@ -6,11 +6,14 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
 widestring = "1.0.2"
-windows = { version = "0.48.0", features = ["Win32_System_Memory"] }
+windows = { version = "0.48.0", features = ["Win32_System_Memory", "Win32_System_LibraryLoader", "Win32_Foundation"] }
+fisherman = { git = "https://github.com/Nordgaren/fisherman" }
 
 [features]
 FmgEditor = []
+MsgRepositoryScan = []
 ParamEditor = []
+ParamRepositoryScan = []
 ActionButtonParam = ["ACTIONBUTTON_PARAM_ST"]
 AiSoundParam = ["AI_SOUND_PARAM_ST"]
 AssetEnvironmentGeometryParam = ["ASSET_GEOMETORY_PARAM_ST"]

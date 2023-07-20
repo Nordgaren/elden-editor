@@ -1,6 +1,6 @@
 use std::ffi::{c_char, CStr};
 use std::ops::Deref;
-use widestring::{u16cstr, U16CStr};
+use widestring::U16CStr;
 
 #[repr(C)]
 pub struct AllocatedDLWString {
@@ -181,6 +181,7 @@ impl PartialEq<&str> for DLString {
 mod tests {
     use crate::dl_string::*;
     use std::mem::size_of;
+    use widestring::u16cstr;
 
     #[test]
     fn size_check() {

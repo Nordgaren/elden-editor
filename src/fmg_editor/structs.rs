@@ -1,50 +1,5 @@
 use std::ops::{Deref, DerefMut};
-
-#[derive(Copy, Clone)]
-pub enum FmgId {
-    TalkMsg = 1,
-    BloodMsg = 2,
-    MovieSubtitle = 3,
-    GoodsName = 10,
-    WeaponName = 11,
-    ProtectorName = 12,
-    AccessoryName = 13,
-    NpcName = 18,
-    PlaceName = 19,
-    WeaponInfo = 20,
-    GoodsInfo = 21,
-    ProtectorInfo = 22,
-    AccessoryInfo = 23,
-    GoodsCaption = 24,
-    WeaponCaption = 25,
-    ProtectorCaption = 26,
-    AccessoryCaption = 27,
-    MagicInfo = 28,
-    MagicCaption = 29,
-    NetworkMessage = 31,
-    ActionButtonText = 32,
-    EventTextForTalk = 33,
-    EventTextForMap = 34,
-    GemName = 35,
-    GemInfo = 36,
-    GemCaption = 37,
-    ArtsName = 42,
-    ArtsCaption = 43,
-    WeaponEffect = 44,
-    GemEffect = 45,
-    GoodsInfo2 = 46,
-    GrMenuText = 200,
-    GrLineHelp = 201,
-    GrKeyGuide = 202,
-    GrSystemMessageWin64 = 203,
-    GrDialogues = 204,
-    LoadingTitle = 205,
-    LoadingText = 206,
-    TutorialTitle = 207,
-    TutorialBody = 208,
-    TextEmbedImageNameWin64 = 209,
-    ToSWin64 = 210,
-}
+use crate::fmg_editor::fmg::FmgId;
 
 #[repr(C)]
 pub(super) struct MsgRepositoryImp {
@@ -64,12 +19,6 @@ pub(super) struct MsgRepositoryImp {
 
 pub(super) struct MsgRepositoryImpPtr {
     pub address: *mut MsgRepositoryImp,
-}
-
-impl MsgRepositoryImpPtr {
-    pub fn set_addr(&mut self, addr:usize) {
-        self.address = addr as _;
-    }
 }
 
 impl Default for MsgRepositoryImpPtr {
@@ -196,21 +145,14 @@ impl DerefMut for MsgRepositoryCategoryPtr {
     }
 }
 
-impl Into<MsgRepositoryCategoryPtr> for *const MsgRepositoryCategory {
-    fn into(self) -> MsgRepositoryCategoryPtr {
-        MsgRepositoryCategoryPtr { address: self as _ }
+impl From<*mut MsgRepositoryCategory> for MsgRepositoryCategoryPtr {
+    fn from(address: *mut MsgRepositoryCategory) -> Self {
+        MsgRepositoryCategoryPtr { address }
     }
 }
-
-impl Into<MsgRepositoryCategoryPtr> for *mut MsgRepositoryCategory {
-    fn into(self) -> MsgRepositoryCategoryPtr {
-        MsgRepositoryCategoryPtr { address: self }
-    }
-}
-
-impl Into<*mut MsgRepositoryCategory> for MsgRepositoryCategoryPtr {
-    fn into(self) -> *mut MsgRepositoryCategory {
-        self.address
+impl From<*const MsgRepositoryCategory> for MsgRepositoryCategoryPtr {
+    fn from(address: *const MsgRepositoryCategory) -> Self {
+        MsgRepositoryCategoryPtr { address: address as *mut MsgRepositoryCategory }
     }
 }
 

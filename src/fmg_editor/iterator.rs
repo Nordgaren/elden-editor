@@ -3,7 +3,7 @@ use crate::fmg_editor::{Fmg, FmgEditor};
 use crate::fmg_editor::structs::MsgRepositoryGroup;
 
 impl IntoIterator for &FmgEditor {
-    type Item = (i32, &'static mut U16CStr);
+    type Item = (i32, &'static U16CStr);
     type IntoIter = FmgIterator;
 
     fn into_iter(self) -> Self::IntoIter {
@@ -12,7 +12,7 @@ impl IntoIterator for &FmgEditor {
 }
 
 impl IntoIterator for Fmg {
-    type Item = (i32, &'static mut U16CStr);
+    type Item = (i32, &'static U16CStr);
     type IntoIter = FmgIterator;
 
     fn into_iter(self) -> Self::IntoIter {
@@ -35,7 +35,7 @@ pub struct FmgIterator {
 }
 
 impl Iterator for FmgIterator {
-    type Item = (i32, &'static mut U16CStr);
+    type Item = (i32, &'static U16CStr);
 
     fn next(&mut self) -> Option<Self::Item> {
         let mut group_slice = &self.group_slice[0];
