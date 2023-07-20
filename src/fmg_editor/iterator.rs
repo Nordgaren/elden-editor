@@ -1,6 +1,6 @@
-use widestring::U16CStr;
-use crate::fmg_editor::{Fmg, FmgEditor};
 use crate::fmg_editor::structs::MsgRepositoryGroup;
+use crate::fmg_editor::{Fmg, FmgEditor};
+use widestring::U16CStr;
 
 impl IntoIterator for &FmgEditor {
     type Item = (i32, &'static U16CStr);
@@ -27,7 +27,6 @@ impl IntoIterator for Fmg {
     }
 }
 
-
 pub struct FmgIterator {
     fmg: Fmg,
     group_slice: &'static [MsgRepositoryGroup],
@@ -51,8 +50,6 @@ impl Iterator for FmgIterator {
         }
         self.index += 1;
 
-        unsafe {
-            Some((entry, self.fmg.get_entry_from_group(entry, group_slice)))
-        }
+        unsafe { Some((entry, self.fmg.get_entry_from_group(entry, group_slice))) }
     }
 }

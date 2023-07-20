@@ -6,24 +6,23 @@ use crate::param::traits::Paramdef;
 /// Format Version: 203
 #[repr(C)]
 pub struct WAYPOINT_PARAM_ST {
+    /// NAME: Attribute 1 - 属性1
+    pub attribute1: i16,
 
-	/// NAME: Attribute 1 - 属性1
-	pub attribute1:i16,
+    /// NAME: Attribute 2 - 属性2
+    pub attribute2: i16,
 
-	/// NAME: Attribute 2 - 属性2
-	pub attribute2:i16,
+    /// NAME: Attribute 3 - 属性3
+    pub attribute3: i16,
 
-	/// NAME: Attribute 3 - 属性3
-	pub attribute3:i16,
+    /// NAME: Attribute 4 - 属性4
+    pub attribute4: i16,
 
-	/// NAME: Attribute 4 - 属性4
-	pub attribute4:i16,
-
-	/// NAME: Padding 4 - パディング4
-	pub padding4:[u8;8],
+    /// NAME: Padding 4 - パディング4
+    pub padding4: [u8; 8],
 }
 
 impl Paramdef for WAYPOINT_PARAM_ST {
-const NAME: &'static str = "WAYPOINT_PARAM_ST";
-const VERSION: u16 = 1;
+    const NAME: &'static str = "WAYPOINT_PARAM_ST";
+    const VERSION: u16 = 1;
 }

@@ -1,20 +1,22 @@
 #[allow(unused)]
 pub mod structs;
 
+use crate::param::traits;
 use crate::param::traits::*;
+use fisherman::scanner::signature::Signature;
+use fisherman::scanner::simple_scanner::SimpleScanner;
+use fisherman::util::{get_module_slice, get_relative_pointer};
 use std::ffi::{c_char, CStr};
 use std::marker::PhantomData;
 use std::mem;
 use std::mem::size_of;
 use std::ops::DerefMut;
 use std::ptr::addr_of;
-use fisherman::scanner::signature::Signature;
-use fisherman::scanner::simple_scanner::SimpleScanner;
-use fisherman::util::{get_module_slice, get_relative_pointer};
-use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 use structs::*;
-use crate::param::traits;
-static mut solo_param_repository: SoloParamRepositoryPtr = SoloParamRepositoryPtr{ address: 0 as *mut SoloParamRepository};
+use windows::Win32::System::LibraryLoader::GetModuleHandleA;
+static mut solo_param_repository: SoloParamRepositoryPtr = SoloParamRepositoryPtr {
+    address: 0 as *mut SoloParamRepository,
+};
 
 #[cfg(feature = "ParamRepositoryScan")]
 pub unsafe fn init() {
@@ -22,7 +24,7 @@ pub unsafe fn init() {
     let param_repo_sig = Signature::from_ida_pattern(
         "48 8B 0D ?? ?? ?? ?? 48 85 C9 0F 84 ?? ?? ?? ?? 45 33 C0 BA 90",
     )
-        .unwrap();
+    .unwrap();
     match SimpleScanner.scan(get_module_slice(base), &param_repo_sig) {
         None => panic!("Could not find SoloParamRepository"),
         Some(offset) => {
@@ -70,7 +72,9 @@ impl<P: Param> ParamEditor<P> {
         editor
     }
     pub unsafe fn init(&mut self, solo_param_repository_address: usize) {
-        self.solo_param_repository = SoloParamRepositoryPtr { address: solo_param_repository_address as *mut SoloParamRepository };
+        self.solo_param_repository = SoloParamRepositoryPtr {
+            address: solo_param_repository_address as *mut SoloParamRepository,
+        };
         self.param_res_cap = self
             .find_param_res_cap()
             .expect(&format!("Could not find ParamResCap for {}", P::name()));
@@ -216,13 +220,15 @@ impl<P: Param + 'static> Iterator for ParamIterator<P> {
             if self.index >= self.table.len() {
                 return None;
             }
-            let t = (self.table[self.index].param_id, self.param.get_row_from_table_mut(&self.table[self.index]));
+            let t = (
+                self.table[self.index].param_id,
+                self.param.get_row_from_table_mut(&self.table[self.index]),
+            );
             self.index += 1;
             Some(t)
         }
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -230,6 +236,5 @@ mod tests {
     use crate::param_editor::structs::SoloParamRepository;
 
     #[test]
-    fn lol() {
-    }
+    fn lol() {}
 }

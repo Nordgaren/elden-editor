@@ -1,28 +1,33 @@
 #![allow(unused)]
 
+use crate::fmg_editor::fmg::{Fmg, FmgEntry, FmgId};
+use crate::fmg_editor::structs::{
+    MsgRepositoryCategory, MsgRepositoryCategoryPtr, MsgRepositoryGroup, MsgRepositoryImp,
+    MsgRepositoryImpPtr,
+};
+use crate::util;
+use fisherman::scanner::signature::Signature;
+use fisherman::scanner::simple_scanner::SimpleScanner;
+use fisherman::util::{get_module_slice, get_relative_pointer};
 use std::borrow::Borrow;
 use std::cell::UnsafeCell;
-use crate::fmg_editor::structs::{MsgRepositoryCategory, MsgRepositoryCategoryPtr, MsgRepositoryGroup, MsgRepositoryImp, MsgRepositoryImpPtr};
-use crate::util;
 use std::mem;
 use std::mem::size_of;
 use std::ops::{Deref, DerefMut};
 use std::ptr::addr_of;
-use fisherman::scanner::signature::Signature;
-use fisherman::scanner::simple_scanner::SimpleScanner;
-use fisherman::util::{get_module_slice, get_relative_pointer};
-use widestring::{U16CStr};
+use widestring::U16CStr;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 use windows::Win32::System::Memory::{
     VirtualAlloc, MEM_COMMIT, MEM_RESERVE, PAGE_EXECUTE_READWRITE,
 };
-use crate::fmg_editor::fmg::{Fmg, FmgEntry, FmgId};
 
-pub mod structs;
-pub mod iterator;
 pub mod fmg;
+pub mod iterator;
+pub mod structs;
 
-static mut msg_repository_imp: MsgRepositoryImpPtr = MsgRepositoryImpPtr { address: 0 as *mut MsgRepositoryImp };
+static mut msg_repository_imp: MsgRepositoryImpPtr = MsgRepositoryImpPtr {
+    address: 0 as *mut MsgRepositoryImp,
+};
 
 #[cfg(feature = "MsgRepositoryScan")]
 pub unsafe fn init() {
@@ -54,9 +59,9 @@ pub struct FmgEditor {
 }
 
 impl<T> AsRef<T> for FmgEditor
-    where
-        T: ?Sized,
-        <FmgEditor as Deref>::Target: AsRef<T>,
+where
+    T: ?Sized,
+    <FmgEditor as Deref>::Target: AsRef<T>,
 {
     fn as_ref(&self) -> &T {
         self.deref().as_ref()
@@ -80,7 +85,7 @@ impl DerefMut for FmgEditor {
 impl FmgEditor {
     pub unsafe fn new(fmg_id: FmgId) -> Self {
         FmgEditor {
-            msg_repository_imp:  Default::default(),
+            msg_repository_imp: Default::default(),
             fmg: Fmg::new(fmg_id),
             changed_entries: vec![],
         }
@@ -96,7 +101,9 @@ impl FmgEditor {
         editor
     }
     pub unsafe fn init(&mut self, msg_repository_imp_address: usize) {
-        self.msg_repository_imp = MsgRepositoryImpPtr { address: msg_repository_imp_address as *mut MsgRepositoryImp };
+        self.msg_repository_imp = MsgRepositoryImpPtr {
+            address: msg_repository_imp_address as *mut MsgRepositoryImp,
+        };
         self.category = self.msg_repository_imp.get_category_mut(0, self.fmg_id);
     }
     pub fn set_entry(&mut self, id: i32, mut string: Vec<u16>) {
@@ -166,4 +173,3 @@ impl FmgEditor {
         self.changed_entries.clear();
     }
 }
-

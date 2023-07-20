@@ -1,6 +1,8 @@
+use crate::fmg_editor::structs::{
+    MsgRepositoryCategory, MsgRepositoryCategoryPtr, MsgRepositoryGroup,
+};
 use std::mem::size_of;
 use std::ptr::addr_of;
-use crate::fmg_editor::structs::{MsgRepositoryCategory, MsgRepositoryCategoryPtr, MsgRepositoryGroup};
 use widestring::U16CStr;
 
 #[derive(Copy, Clone)]
@@ -16,7 +18,10 @@ pub(super) struct FmgEntry {
 
 impl Fmg {
     pub(crate) fn new(fmg_id: FmgId) -> Fmg {
-        Fmg { fmg_id, category: Default::default() }
+        Fmg {
+            fmg_id,
+            category: Default::default(),
+        }
     }
     #[inline(always)]
     pub unsafe fn get_group_slice(&self) -> &'static [MsgRepositoryGroup] {
@@ -54,16 +59,22 @@ impl Fmg {
         panic!("Attempted to find entry {}", entry)
     }
     #[inline(always)]
-    pub unsafe fn get_entry_from_group(&self, entry: i32, group: &MsgRepositoryGroup) -> &'static U16CStr {
+    pub unsafe fn get_entry_from_group(
+        &self,
+        entry: i32,
+        group: &MsgRepositoryGroup,
+    ) -> &'static U16CStr {
         self.get_entry_from_group_mut(entry, group)
     }
-    pub unsafe fn get_entry_from_group_mut(&self, entry: i32, group: &MsgRepositoryGroup) -> &'static mut U16CStr {
+    pub unsafe fn get_entry_from_group_mut(
+        &self,
+        entry: i32,
+        group: &MsgRepositoryGroup,
+    ) -> &'static mut U16CStr {
         let i = entry - group.first_id;
         let offset_slice = self.get_offset_slice();
         let offset = offset_slice[group.index as usize + i as usize];
-        return U16CStr::from_ptr_str_mut(
-            (addr_of!(*self.category) as usize + offset) as *mut u16,
-        );
+        return U16CStr::from_ptr_str_mut((addr_of!(*self.category) as usize + offset) as *mut u16);
     }
     pub(crate) unsafe fn get_offset(&mut self, entry: i32) -> usize {
         let groups = self.get_group_slice();

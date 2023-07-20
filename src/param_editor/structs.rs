@@ -18,23 +18,21 @@ pub(super) struct SoloParamRepositoryPtr {
 }
 impl Default for SoloParamRepositoryPtr {
     fn default() -> Self {
-        SoloParamRepositoryPtr { address: 0 as *mut SoloParamRepository }
+        SoloParamRepositoryPtr {
+            address: 0 as *mut SoloParamRepository,
+        }
     }
 }
 impl Deref for SoloParamRepositoryPtr {
     type Target = SoloParamRepository;
 
     fn deref(&self) -> &Self::Target {
-        unsafe {
-            &*self.address
-        }
+        unsafe { &*self.address }
     }
 }
 impl DerefMut for SoloParamRepositoryPtr {
     fn deref_mut(&mut self) -> &mut Self::Target {
-        unsafe {
-            &mut *self.address
-        }
+        unsafe { &mut *self.address }
     }
 }
 

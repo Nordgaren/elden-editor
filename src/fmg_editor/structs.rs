@@ -1,5 +1,5 @@
-use std::ops::{Deref, DerefMut};
 use crate::fmg_editor::fmg::FmgId;
+use std::ops::{Deref, DerefMut};
 
 #[repr(C)]
 pub(super) struct MsgRepositoryImp {
@@ -23,7 +23,9 @@ pub(super) struct MsgRepositoryImpPtr {
 
 impl Default for MsgRepositoryImpPtr {
     fn default() -> Self {
-        MsgRepositoryImpPtr { address: 0 as *mut MsgRepositoryImp }
+        MsgRepositoryImpPtr {
+            address: 0 as *mut MsgRepositoryImp,
+        }
     }
 }
 
@@ -31,24 +33,18 @@ impl Deref for MsgRepositoryImpPtr {
     type Target = MsgRepositoryImp;
 
     fn deref(&self) -> &Self::Target {
-        unsafe {
-            &*self.address
-        }
+        unsafe { &*self.address }
     }
 }
 
 impl DerefMut for MsgRepositoryImpPtr {
     fn deref_mut(&mut self) -> &mut Self::Target {
-        unsafe {
-            &mut *self.address
-        }
+        unsafe { &mut *self.address }
     }
 }
 
 impl MsgRepositoryImp {
-    pub(super) unsafe fn get_version_array(
-        &self,
-    ) -> &'static [*mut *const MsgRepositoryCategory] {
+    pub(super) unsafe fn get_version_array(&self) -> &'static [*mut *const MsgRepositoryCategory] {
         std::slice::from_raw_parts(self.categories as _, self.version_count as usize)
     }
     pub(super) unsafe fn get_version_array_mut(
@@ -74,18 +70,10 @@ impl MsgRepositoryImp {
             self.category_capacity as usize,
         )
     }
-    pub unsafe fn get_category(
-        &self,
-        version: usize,
-        fmg: FmgId,
-    ) -> MsgRepositoryCategoryPtr {
+    pub unsafe fn get_category(&self, version: usize, fmg: FmgId) -> MsgRepositoryCategoryPtr {
         self.get_category_array(version)[fmg as usize].into()
     }
-    pub unsafe fn get_category_mut(
-        &self,
-        version: usize,
-        fmg: FmgId,
-    ) -> MsgRepositoryCategoryPtr {
+    pub unsafe fn get_category_mut(&self, version: usize, fmg: FmgId) -> MsgRepositoryCategoryPtr {
         self.get_category_array_mut(version)[fmg as usize].into()
     }
 }
@@ -131,17 +119,13 @@ impl Deref for MsgRepositoryCategoryPtr {
     type Target = MsgRepositoryCategory;
 
     fn deref(&self) -> &Self::Target {
-        unsafe {
-            &*self.address
-        }
+        unsafe { &*self.address }
     }
 }
 
 impl DerefMut for MsgRepositoryCategoryPtr {
     fn deref_mut(&mut self) -> &mut Self::Target {
-        unsafe {
-            &mut *self.address
-        }
+        unsafe { &mut *self.address }
     }
 }
 
@@ -152,7 +136,9 @@ impl From<*mut MsgRepositoryCategory> for MsgRepositoryCategoryPtr {
 }
 impl From<*const MsgRepositoryCategory> for MsgRepositoryCategoryPtr {
     fn from(address: *const MsgRepositoryCategory) -> Self {
-        MsgRepositoryCategoryPtr { address: address as *mut MsgRepositoryCategory }
+        MsgRepositoryCategoryPtr {
+            address: address as *mut MsgRepositoryCategory,
+        }
     }
 }
 

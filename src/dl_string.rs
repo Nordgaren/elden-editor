@@ -62,9 +62,7 @@ impl Deref for DLWString {
     type Target = U16CStr;
 
     fn deref(&self) -> &Self::Target {
-        unsafe {
-            U16CStr::from_ptr_str(self.get_string_ptr())
-        }
+        unsafe { U16CStr::from_ptr_str(self.get_string_ptr()) }
     }
 }
 
@@ -110,7 +108,9 @@ impl DLString {
     pub unsafe fn from_str(s: &str) -> DLString {
         if s.len() >= 8 {
             return DLString {
-                string: DLStringUnion { ptr: s.as_ptr() as *const c_char },
+                string: DLStringUnion {
+                    ptr: s.as_ptr() as *const c_char,
+                },
                 length: s.len(),
                 capacity: s.len(),
             };
