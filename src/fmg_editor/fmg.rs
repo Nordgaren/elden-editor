@@ -56,7 +56,7 @@ impl Fmg {
             }
         }
 
-        panic!("Attempted to find entry {}", entry_id)
+        panic!("Could not find find entry {}", entry_id)
     }
     #[inline(always)]
     pub unsafe fn get_entry_from_group(

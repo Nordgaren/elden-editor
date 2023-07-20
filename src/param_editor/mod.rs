@@ -236,7 +236,7 @@ impl<P: Param + 'static> Index<i32> for ParamEditor<P> {
 
     fn index(&self, entry_id: i32) -> &Self::Output {
         unsafe {
-            self.get_param_row(entry_id).expect(&format!("Could not find row {row}"))
+            self.get_param_row(entry_id).expect(&format!("Could not find row {entry_id}"))
         }
     }
 }
@@ -254,7 +254,7 @@ impl<P: Param + 'static> Index<&TableEntry> for ParamEditor<P> {
 impl<P: Param + 'static> IndexMut<i32> for ParamEditor<P> {
     fn index_mut(&mut self, entry_id: i32) -> &mut Self::Output {
         unsafe {
-            self.get_param_row_mut(entry_id).expect(&format!("Could not find row {row}"))
+            self.get_param_row_mut(entry_id).expect(&format!("Could not find row {entry_id}"))
         }
     }
 }
