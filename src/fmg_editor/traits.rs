@@ -1,5 +1,5 @@
-use std::ops::{Index, IndexMut};
-use crate::fmg_editor::structs::MsgRepositoryGroup;
+use std::ops::{Deref, DerefMut, Index, IndexMut};
+use crate::fmg_editor::structs::{MsgRepositoryCategory, MsgRepositoryCategoryPtr, MsgRepositoryGroup, MsgRepositoryImp, MsgRepositoryImpPtr};
 use crate::fmg_editor::{Fmg, FmgEditor};
 use widestring::U16CStr;
 
@@ -70,6 +70,63 @@ impl IndexMut<i32> for Fmg {
     fn index_mut(&mut self, entry_id: i32) -> &mut Self::Output {
         unsafe {
             self.get_entry_mut(entry_id)
+        }
+    }
+}
+
+impl Default for MsgRepositoryImpPtr {
+    fn default() -> Self {
+        MsgRepositoryImpPtr {
+            address: 0 as *mut MsgRepositoryImp,
+        }
+    }
+}
+
+impl Deref for MsgRepositoryImpPtr {
+    type Target = MsgRepositoryImp;
+
+    fn deref(&self) -> &Self::Target {
+        unsafe { &*self.address }
+    }
+}
+
+impl DerefMut for MsgRepositoryImpPtr {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        unsafe { &mut *self.address }
+    }
+}
+
+impl Default for MsgRepositoryCategoryPtr {
+    fn default() -> Self {
+        MsgRepositoryCategoryPtr {
+            address: 0 as *mut MsgRepositoryCategory,
+        }
+    }
+}
+
+impl Deref for MsgRepositoryCategoryPtr {
+    type Target = MsgRepositoryCategory;
+
+    fn deref(&self) -> &Self::Target {
+        unsafe { &*self.address }
+    }
+}
+
+impl DerefMut for MsgRepositoryCategoryPtr {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        unsafe { &mut *self.address }
+    }
+}
+
+impl From<*mut MsgRepositoryCategory> for MsgRepositoryCategoryPtr {
+    fn from(address: *mut MsgRepositoryCategory) -> Self {
+        MsgRepositoryCategoryPtr { address }
+    }
+}
+impl From<*const MsgRepositoryCategory> for MsgRepositoryCategoryPtr {
+    fn from(address: *const MsgRepositoryCategory) -> Self {
+        MsgRepositoryCategoryPtr {
+            address: address as *mut MsgRepositoryCategory,
         }
     }
 }

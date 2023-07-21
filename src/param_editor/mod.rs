@@ -1,7 +1,8 @@
 #[allow(unused)]
-pub mod structs;
 
-use crate::param::traits;
+pub mod structs;
+pub mod traits;
+
 use crate::param::traits::*;
 use fisherman::scanner::signature::Signature;
 use fisherman::scanner::simple_scanner::SimpleScanner;
@@ -10,7 +11,7 @@ use std::ffi::{c_char, CStr};
 use std::marker::PhantomData;
 use std::mem;
 use std::mem::size_of;
-use std::ops::{DerefMut, Index, IndexMut};
+use std::ops::{Deref, DerefMut, Index, IndexMut};
 use std::ptr::addr_of;
 use structs::*;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
@@ -20,7 +21,6 @@ static mut solo_param_repository: SoloParamRepositoryPtr = SoloParamRepositoryPt
     address: 0 as *mut SoloParamRepository,
 };
 
-#[cfg(feature = "ParamRepositoryScan")]
 pub unsafe fn init() {
     let base = GetModuleHandleA(None).unwrap().0 as usize;
     let param_repo_sig = Signature::from_ida_pattern(
@@ -46,9 +46,9 @@ pub unsafe fn init_from_pointer(address: usize) {
 
 pub struct ParamEditor<P: Param> {
     solo_param_repository: SoloParamRepositoryPtr,
-    param_res_cap: &'static ParamResCap,
-    param_header: &'static ParamHeader,
-    id_repository_info: &'static IdRepositoryInfo,
+    param_res_cap: ParamResCapPtr,
+    param_header: ParamHeaderPtr,
+    id_repository_info: IdRepositoryInfoPtr,
     phantom_data: PhantomData<P>,
 }
 
@@ -57,8 +57,8 @@ impl<P: Param> ParamEditor<P> {
         ParamEditor {
             solo_param_repository: Default::default(),
             param_res_cap: mem::transmute(0usize),
-            param_header: mem::transmute(0usize),
-            id_repository_info: mem::transmute(0usize),
+            param_header: Default::default(),
+            id_repository_info: Default::default(),
             phantom_data: Default::default(),
         }
     }
@@ -80,7 +80,7 @@ impl<P: Param> ParamEditor<P> {
             .find_param_res_cap()
             .expect(&format!("Could not find ParamResCap for {}", P::name()));
 
-        self.param_header = self.param_res_cap.param_info.param;
+        self.param_header = self.param_res_cap.param_info.param.into();
 
         let param_type = CStr::from_ptr(
             (addr_of!(*self.param_header) as usize + self.param_header.param_type_offset as usize)
@@ -106,7 +106,7 @@ impl<P: Param> ParamEditor<P> {
             );
         }
 
-        self.id_repository_info = mem::transmute(addr_of!(*self.param_header) as usize - 0x10);
+        self.id_repository_info = self.param_header.into();
     }
     #[inline(always)]
     pub unsafe fn get_param_table(&self) -> &'static [TableEntry] {
@@ -164,7 +164,7 @@ impl<P: Param> ParamEditor<P> {
     pub unsafe fn get_row_from_table_mut(&self, table: &TableEntry) -> &'static mut P::Def {
         mem::transmute(addr_of!(*self.param_header) as usize + table.param_offset as usize)
     }
-    unsafe fn find_param_res_cap(&self) -> Option<&'static ParamResCap> {
+    unsafe fn find_param_res_cap(&self) -> Option<ParamResCapPtr> {
         let solo_param_entries = &self.solo_param_repository.repository_entries;
 
         for entry in solo_param_entries {

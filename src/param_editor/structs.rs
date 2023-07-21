@@ -16,32 +16,13 @@ pub(super) struct SoloParamRepository {
 pub(super) struct SoloParamRepositoryPtr {
     pub address: *mut SoloParamRepository,
 }
-impl Default for SoloParamRepositoryPtr {
-    fn default() -> Self {
-        SoloParamRepositoryPtr {
-            address: 0 as *mut SoloParamRepository,
-        }
-    }
-}
-impl Deref for SoloParamRepositoryPtr {
-    type Target = SoloParamRepository;
-
-    fn deref(&self) -> &Self::Target {
-        unsafe { &*self.address }
-    }
-}
-impl DerefMut for SoloParamRepositoryPtr {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        unsafe { &mut *self.address }
-    }
-}
 
 #[repr(C)]
 pub(super) struct RepositoryEntry {
     pub param_loaded: bool,
     pub undefined0x1: [u8; 0x3],
     pub pad0x4: u32,
-    pub param: &'static ParamResCap,
+    pub param: ParamResCapPtr,
     pub undefined0x10: [u8; 0x38],
 }
 
@@ -67,28 +48,47 @@ pub struct ParamHeader {
     pub undefined0x34: [u8; 0xC],
     pub param_table: TableEntry,
 }
+#[derive(Clone, Copy)]
+pub(super) struct ParamHeaderPtr {
+    pub address: *mut ParamHeader,
+}
+
 
 #[repr(C)]
 pub(super) struct ParamInfo {
     pub undefined0x0: [u8; 0x18],
     pub param_name: DLWString,
     pub undefined0x38: [u8; 0x48],
-    pub param: &'static ParamHeader,
+    pub param: ParamHeaderPtr,
 }
+#[derive(Clone, Copy)]
+pub(super) struct ParamInfoPtr {
+    pub address: *mut ParamInfo,
+}
+
 
 #[repr(C)]
 pub(super) struct ParamResCap {
     pub undefined0x0: [u8; 0x18],
     pub param_name: DLWString,
     pub undefined0x38: [u8; 0x48],
-    pub param_info: &'static ParamInfo,
+    pub param_info: ParamInfoPtr,
 }
+#[derive(Clone, Copy)]
+pub(super) struct ParamResCapPtr {
+    pub address: *mut ParamResCap,
+}
+
 
 #[repr(C)]
 pub(super) struct IdRepositoryInfo {
     pub start_offset: u32,
     pub entry_count: u32,
     pub pad0x8: u64,
+}
+#[derive(Clone, Copy)]
+pub(super) struct IdRepositoryInfoPtr {
+    pub address: *mut IdRepositoryInfo,
 }
 
 #[repr(C)]
